@@ -152,7 +152,7 @@ void uppergoingtask(void const * argument)
   mapping[3] = 0;
   mapping[4] = 5;
   mapping[5] = 2;
-
+  osDelay(100);
   osDelay(1350);
 
   for(;;)
