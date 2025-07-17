@@ -127,7 +127,7 @@ void uppergoingtask(void const * argument)
   float x_qu = 196.0;
   float x_qu_ps = 600;
   float x_fang_4 = 3033.0;//3060  3040
-  float x_fang_2 = 2780.0;
+  float x_fang_2 = 2790.0;
   float x_middle = 1769.0;
   float x_zhan = 2560.0;  
 
@@ -137,7 +137,7 @@ void uppergoingtask(void const * argument)
   float y_qu_3 = 1190.0;
   float y_middle = 750.0;
 
-  float y_fang_1 = 1174.0;
+  float y_fang_1 = 1184.0;
   float y_fang_2 = 1365.0;
   float y_fang_3 = 954.0;
   float y_fang_4 = 489.5;
@@ -213,7 +213,7 @@ void uppergoingtask(void const * argument)
         if(diff < 4)
         {
           __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-          pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.01);
+          pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
           pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);////一个箱子的Y
           osDelay(800);
           runflag = 5;
@@ -289,7 +289,7 @@ void uppergoingtask(void const * argument)
           runflag = 12;
           osDelay(1000);
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          pid_reset(&(mygantry.Motor_X->speedPID), 1.2, 0.0015, 0.001);
+          pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
           //pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
           pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.018, 0.02);
           osDelay(1000);
@@ -376,7 +376,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             osDelay(500);
             step00 = 2;
@@ -447,7 +447,7 @@ void uppergoingtask(void const * argument)
             osDelay(750);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
             osDelay(500);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.2, 0.0015, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.018, 0.02);
             step00 = 5;
           }
@@ -525,7 +525,7 @@ void uppergoingtask(void const * argument)
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             osDelay(500);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             step01 = 2;
           }
@@ -596,7 +596,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle+100;
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
             osDelay(500);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.01, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
             step01 = 5;
           }
@@ -673,7 +673,7 @@ void uppergoingtask(void const * argument)
             osDelay(1000);
             mygantry.gantrypos.z = z_middle;
             osDelay(1500);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);//
             step02 = 2;
@@ -753,7 +753,7 @@ void uppergoingtask(void const * argument)
             osDelay(1000);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.01, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             osDelay(1000);
             step02 = 5;
           }
@@ -836,7 +836,7 @@ void uppergoingtask(void const * argument)
         if(diff < 4)
         {
           __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-          pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+          pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
           pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
           osDelay(800);
           runflag = 5;
@@ -910,7 +910,7 @@ void uppergoingtask(void const * argument)
         {
           osDelay(100);
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          pid_reset(&(mygantry.Motor_X->speedPID), 1.2, 0.0015, 0.001);
+          pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
           pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
           osDelay(1500);
           runflag = 12;
@@ -996,7 +996,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(700);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             osDelay(500);
             step10 = 2;
@@ -1064,6 +1064,8 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
+            pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
             osDelay(500);
             step10 = 5;
           }
@@ -1146,7 +1148,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             osDelay(200);
             step11 = 2;
@@ -1224,7 +1226,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle+100;
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.01, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             osDelay(500);
             step11 = 5;
           }
@@ -1308,7 +1310,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             osDelay(500);
             step12 = 2;
@@ -1375,7 +1377,7 @@ void uppergoingtask(void const * argument)
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.01, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             osDelay(500);
             step12 = 5;
           }
@@ -1456,7 +1458,7 @@ void uppergoingtask(void const * argument)
         if(diff < 4)
         {
           __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-          pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+          pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
           pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
           osDelay(800);
           runflag = 5;
@@ -1529,7 +1531,7 @@ void uppergoingtask(void const * argument)
         {
           osDelay(800);
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          pid_reset(&(mygantry.Motor_X->speedPID), 1.2, 0.0015, 0.001);
+          pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
           pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
           osDelay(1000);
           runflag = 12;
@@ -1626,7 +1628,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             osDelay(500);
             step20 = 2;
@@ -1705,7 +1707,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.2, 0.0015, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.018, 0.02);
             step20 = 5;
           }
@@ -1789,7 +1791,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             step21 = 2;
           }
@@ -1866,7 +1868,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle+100;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.01, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
             osDelay(500);
             step21 = 5;
@@ -1951,7 +1953,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(500);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);//
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
             osDelay(500);
             step22 = 2;
@@ -2030,7 +2032,7 @@ void uppergoingtask(void const * argument)
             osDelay(500);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
-            pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.01, 0.001);
+            pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);
             osDelay(500);
             step22 = 5;
           }

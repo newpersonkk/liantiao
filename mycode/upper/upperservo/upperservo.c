@@ -63,11 +63,17 @@ void gantry_Motor_init()               //电机初始化
 
     DJI_Init();
 
-    pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.01, 0.001);//x  //10.0 0.5 0.05
-    //pid_reset(&(mygantry.Motor_X->speedPID), 1.8, 0.003, 0.001);
-    //pid_reset(&(mygantry.Motor_X->speedPID), 1.2, 0.0015, 0.001);
+    //pid_reset(&(mygantry.Motor_X->speedPID), 1.2, 0.01, 0.01);//x  //10.0 0.5 0.05
+    //pid_reset(&(mygantry.Motor_X->speedPID), 1.1, 0.06, 0.01);//一个箱子
+    //pid_reset(&(mygantry.Motor_X->speedPID), 1.0, 0.01, 0.01);//两个箱子
 
-    pid_reset(&(mygantry.Motor_X->posPID), 6.0, 0.0, 0.0);//x  //70 0.04 
+
+    pid_reset(&(mygantry.Motor_X->speedPID), 12, 0.2, 5.0);//x  //10.0 0.5 0.05
+    
+
+    pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
+    pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
+    pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
 
     pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
     //pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
@@ -85,14 +91,14 @@ void gantry_Motor_init()               //电机初始化
     //pid_reset(&(mygantry.Motor_S->posPID),15.0, 0.0, 0);//z   15空转  2.0一个箱子 1.5两个箱子
 
 
-    mygantry.Motor_X->speedPID.outputMax = 10000;
+    mygantry.Motor_X->speedPID.outputMax = 20000;
     mygantry.Motor_Y->speedPID.outputMax = 10000;
     mygantry.Motor_Z->speedPID.outputMax = 10000;
     //mygantry.Motor_S->speedPID.outputMax = 8000;
 
-    mygantry.Motor_X->posPID.outputMax = 20000;
+    mygantry.Motor_X->posPID.outputMax = 50000;
     mygantry.Motor_Y->posPID.outputMax = 20000;
-    mygantry.Motor_Z->posPID.outputMax = 20000;
+    mygantry.Motor_Z->posPID.outputMax = 50000;
     //mygantry.Motor_S->speedPID.outputMax = 8000;
 
     CAN_FilterTypeDef can_filter_st;
