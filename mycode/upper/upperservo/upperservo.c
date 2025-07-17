@@ -72,15 +72,14 @@ void gantry_Motor_init()               //电机初始化
     
 
     pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
-    pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
-    pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
+    //pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
+    //pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
 
-    pid_reset(&(mygantry.Motor_Y->speedPID), 1.5, 0.01, 0.01);
-    //pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.015, 0.01);
-    //pid_reset(&(mygantry.Motor_Y->speedPID), 1.3, 0.018, 0.02);
+    pid_reset(&(mygantry.Motor_Y->speedPID), 12, 0.2, 5.0);
 
-    pid_reset(&(mygantry.Motor_Y->speedPID), 10.0, 1.0, 2.0);//y
-    pid_reset(&(mygantry.Motor_Y->posPID), 10.0, 0.0, 0);//y
+    pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);//y
+    //pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);//y
+    //pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);//y
 
 
     pid_reset(&(mygantry.Motor_Z->posPID), 8.0, 0.0, 0);//z
@@ -92,12 +91,12 @@ void gantry_Motor_init()               //电机初始化
 
 
     mygantry.Motor_X->speedPID.outputMax = 20000;
-    mygantry.Motor_Y->speedPID.outputMax = 10000;
+    mygantry.Motor_Y->speedPID.outputMax = 20000;
     mygantry.Motor_Z->speedPID.outputMax = 10000;
     //mygantry.Motor_S->speedPID.outputMax = 8000;
 
     mygantry.Motor_X->posPID.outputMax = 50000;
-    mygantry.Motor_Y->posPID.outputMax = 20000;
+    mygantry.Motor_Y->posPID.outputMax = 50000;
     mygantry.Motor_Z->posPID.outputMax = 50000;
     //mygantry.Motor_S->speedPID.outputMax = 8000;
 
