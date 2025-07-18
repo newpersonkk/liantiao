@@ -145,9 +145,6 @@ void uppergoingtask(void const * argument)
   float y_fang_6 = 223.0;
 
 
-
-
-
   //generate_mapping_array(xiangzi,zhiduo,mapping);
   mapping[0] = 1;
   mapping[1] = 3;
