@@ -124,7 +124,7 @@ void uppergoingtask(void const * argument)
   //大概14 = 1cm
 
 
-  float x_qu = 196.0;
+  float x_qu = 195.0;
   float x_qu_ps = 600;
   float x_fang_4 = 3033.0;//3060  3040
   float x_fang_2 = 2790.0;
@@ -137,7 +137,7 @@ void uppergoingtask(void const * argument)
   float y_qu_3 = 1200.0;
   float y_middle = 750.0;
 
-  float y_fang_1 = 1184.0;
+  float y_fang_1 = 1190.0;
   float y_fang_2 = 1355.0;
   float y_fang_3 = 954.0;
   float y_fang_4 = 489.5;
@@ -332,7 +332,13 @@ void uppergoingtask(void const * argument)
           else if(mapping[3] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
           else if(mapping[3] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
           else if(mapping[3] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
-          osDelay(2000);
+          osDelay(1000);
+          if(mapping[3] < 5 && mapping[3] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[3] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[3] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[3] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          else if(mapping[3] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          osDelay(1000);
           step00 = 100;
         }
         if(step00 == 100)
@@ -402,7 +408,13 @@ void uppergoingtask(void const * argument)
           else if(mapping[0] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[0] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[0] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(2000);
+          osDelay(1000);
+          if(mapping[0] < 5 && mapping[0] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[0] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[0] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[0] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[0] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(1000);
           step00 = 3;
         }
         if(step00 == 3)
@@ -477,7 +489,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
-          osDelay(2000);
+          osDelay(1000);
+          if(num > 2 && num < 5 )  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5);     //不需要旋转
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          osDelay(1000);
           step01 = 100;
         }
         if(step01 == 100)
@@ -549,7 +567,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(2000);
+          osDelay(1000);
+          if(num < 5 && num > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(1000);
           step01 = 400 ;
         }
         if(step01 == 400)
@@ -627,7 +651,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
-          osDelay(2000);
+          osDelay(1000);
+          if(num > 2 && num < 5 ) motor_controlmode(&mi_motor[0], 0, S0, 0, 2.2, 1.5);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          osDelay(1000);
           step02 = 100 ;
         }
         if(step02 == 100)
@@ -697,7 +727,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
-          osDelay(2000);
+          osDelay(1000);
+          if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          osDelay(1000);
           step02 = 3;
         }
         if(step02 == 3)
@@ -944,7 +980,13 @@ void uppergoingtask(void const * argument)
           else if(mapping[4] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
           else if(mapping[4] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
           else if(mapping[4] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
-          osDelay(2000);
+          osDelay(1000);
+          if(mapping[4] < 5 && mapping[4] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[4] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[4] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[4] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          else if(mapping[4] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          osDelay(1000);
           step10 = 100;
         }
         if(step10 == 100)
@@ -1009,11 +1051,17 @@ void uppergoingtask(void const * argument)
         if(step10 == 200)
         {
           if(mapping[1] < 5 && mapping[1] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
-          if(mapping[1] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[1] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
           else if(mapping[1] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[1] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[1] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(2000);
+          osDelay(1000);
+          if(mapping[1] < 5 && mapping[1] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[1] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[1] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[1] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[1] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(1000);
           step10 = 3;
         }
         if(step10 == 3)
@@ -1089,7 +1137,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
-          osDelay(2000);
+          osDelay(1000);
+          if(num > 2 && num < 5 )  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5);     //不需要旋转
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          osDelay(1000);
           step11 = 100;
         }
         if(step11 == 100)
@@ -1167,7 +1221,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(2000);
+          osDelay(1000);
+          if(num < 6 && num > 1)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(1000);
           step11 = 400 ;
         }
         if(step11 == 400)
@@ -1254,7 +1314,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
-          osDelay(3000);
+          osDelay(1000);
+          if(num > 2 && num < 5 ) motor_controlmode(&mi_motor[0], 0, S0, 0, 2.2, 1.5);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          osDelay(1000);
           step12 = 100 ;
         }
         if(step12 == 100)
@@ -1320,8 +1386,14 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
-            osDelay(2000);
-            step12 = 3;//[3]运动到位
+          osDelay(1000);
+          if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          osDelay(1000);
+          step12 = 3;//[3]运动到位
         }
         if(step12 == 3)
         {
@@ -1576,7 +1648,13 @@ void uppergoingtask(void const * argument)
           else if(mapping[5] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
           else if(mapping[5] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
           else if(mapping[5] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
-          osDelay(2000);
+          osDelay(1000);
+          if(mapping[5] < 5 && mapping[5] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[5] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[5] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[5] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          else if(mapping[5] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          osDelay(1000);
           step20 = 100;
         }
         if(step20 == 100)
@@ -1650,18 +1728,23 @@ void uppergoingtask(void const * argument)
         if(step20 == 200)
         {
           if(mapping[2] < 5 && mapping[2] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
-          if(mapping[2] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[2] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
           else if(mapping[2] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[2] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[2] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(2000);
+          osDelay(1000);
+          if(mapping[2] < 5 && mapping[2] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[2] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[2] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[2] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[2] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(1000);
           step20 = 3;
         }
         if(step20 == 3)
         {
           if(mapping[2] < 6 && mapping[2] > 0)//不需要转动直接进行放置再回到中点
           {
-            //转180度
             mygantry.gantrypos.x = x_fang_4;
             switch(mapping[2]){
             case 2:
@@ -1900,7 +1983,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
-          osDelay(2000);
+          osDelay(1000);
+          if(num > 2 && num < 5 ) motor_controlmode(&mi_motor[0], 0, S0, 0, 2.2, 1.5);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          osDelay(1000);
           step22 = 100 ;
         }
         if(step22 == 100)
@@ -1979,7 +2068,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
-          osDelay(2000);
+          osDelay(1000);
+          if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          osDelay(1000);
           step22 = 3;//[3]运动到位
         }
         if(step22 == 3)
