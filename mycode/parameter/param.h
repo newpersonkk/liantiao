@@ -22,11 +22,19 @@ typedef struct
 gantrystate;
 
 
+extern int16_t xiangzi[6]; 
+extern int16_t zhiduo[6];  
+
 extern gantrystate mygantry; 
 
 extern uint8_t usart1_rx[1];
 extern uint8_t usart2_rx[1];
 extern uint8_t usart6_rx[1];
+extern uint8_t uart4_rx[1];
+extern uint8_t uart5_rx[1];
+
+extern char tx_buffer4[6]; 
+extern char tx_buffer5[6]; 
 
 extern uint8_t Rxbuffer_1[195];
 extern uint8_t Rxbuffer_2[195];

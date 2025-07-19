@@ -2,6 +2,20 @@
 #include "usart.h"
 #include "stm32f4xx_it.h"
 #include "decode.h"
+#include "string.h"
+
+
+static uint16_t u4state = 0;
+static uint16_t u5state = 0;
+
+uint8_t uart4_rx[1];
+uint8_t uart5_rx[1];
+
+static uint8_t rx_buffer4[6];   // 接收缓冲区
+static uint8_t rx_buffer5[6];   // 接收缓冲区
+
+char tx_buffer4[6]; 
+char tx_buffer5[6]; 
 
 uint8_t Rxbuffer_1[195];
 uint8_t Rxbuffer_2[195];
@@ -73,5 +87,31 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
         } else {
         };
         HAL_UART_Receive_IT(&huart2, usart2_rx, 1);
+    }
+    if (huart->Instance == UART4)
+    {
+        rx_buffer4[u4state] = uart4_rx[1]; // 存入缓冲区
+        u4state++;
+        if (u4state >= 6)
+        {
+            memcpy(tx_buffer4, rx_buffer4, 6);// 复制到目标缓冲区rx_complete=1; // 设置完成标志
+        }
+        else 
+        {
+            HAL_UART_Receive_IT(&huart4, uart4_rx, 1);
+        }
+    }
+    if (huart->Instance == UART5)
+    {
+        rx_buffer5[u5state] = uart5_rx[1]; // 存入缓冲区
+        u5state++;
+        if (u5state >= 6)
+        {
+            memcpy(tx_buffer5, rx_buffer5, 6);// 复制到目标缓冲区rx_complete=1; // 设置完成标志
+        }
+        else 
+        {
+            HAL_UART_Receive_IT(&huart5, uart5_rx, 1);
+        }
     }
 }

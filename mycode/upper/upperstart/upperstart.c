@@ -12,6 +12,11 @@ void StartDefaultTask(void const * argument)
 
   HAL_UART_Receive_IT(&huart1, usart1_rx, 1);
   HAL_UART_Receive_IT(&huart2, usart2_rx, 1);
+
+  HAL_UART_Receive_IT(&huart4, uart4_rx, 1);
+  HAL_UART_Receive_IT(&huart5, uart5_rx, 1);
+
+
   osDelay(1000);
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);

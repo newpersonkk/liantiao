@@ -6,7 +6,8 @@
 #include "cmsis_os.h"
 #include "tim.h"
 #include "motor.h"
-
+#include "string.h"
+#include <ctype.h>
 uint16_t stateflag = 0 ;
 uint16_t runflag = 0 ;//0
 uint16_t step00 = 0 ; 
@@ -21,10 +22,12 @@ uint16_t step20 = 0 ;
 uint16_t step21 = 0 ; 
 uint16_t step22 = 0 ;
 
-int16_t xiangzi[6]={1,3,4,2,5,6};  //横向
-int16_t zhiduo[6]={1,6,3,4,5,0};   //从左到右
+int16_t xiangzi[6]; 
+int16_t zhiduo[6];  
 int16_t mapping[6]={0,0,0,0,0,0};
 uint16_t jiaquzhuangtai = 0;//0
+
+
 void generate_mapping_array(int16_t arr1[], int16_t arr2[], int16_t output[]) {
     // 存储每个数字在两个数组中的索引
     int index_list1[6][6] = {{0}}; 
@@ -70,6 +73,18 @@ void generate_mapping_array(int16_t arr1[], int16_t arr2[], int16_t output[]) {
         }
     }
 }
+
+void matchingnum(int16_t arr1[], const char arr2[])
+{
+  for (uint16_t i = 0; i < 6; ++i) {
+      if (isdigit(arr2[i])) {
+          arr1[i] = arr2[i] - '0';  // 转换数字字符为整数
+      } else {
+          arr1[i] = 0;             // 非数字字符赋值为0
+      }
+  }
+}
+
 
 void uppergoingtask(void const * argument)
 {
@@ -144,14 +159,9 @@ void uppergoingtask(void const * argument)
   float y_fang_5 = 45.5;
   float y_fang_6 = 223.0;
 
-
-  //generate_mapping_array(xiangzi,zhiduo,mapping);
-  mapping[0] = 1;
-  mapping[1] = 3;
-  mapping[2] = 4;
-  mapping[3] = 5;
-  mapping[4] = 0;
-  mapping[5] = 2;
+  matchingnum(mapping, tx_buffer4);
+  matchingnum(zhiduo, tx_buffer5);
+  generate_mapping_array(xiangzi,zhiduo,mapping);
   osDelay(100);
   osDelay(1350);
 
