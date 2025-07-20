@@ -60,3 +60,33 @@ void speedServo(float ref, DJI_t * motor){
 	PID_Calc(&motor->speedPID);
 }
 
+void synchronizedPositionServo(float ref, DJI_t *leftMotor, DJI_t *rightMotor, 
+                              LidarPointTypedef *lidarData, 
+                              float leftCompensation, float rightCompensation,
+                              int leftDirection, int rightDirection) {
+    // 使用同一个Lidar数据作为位置反馈
+    float commonPositionFdb = lidarData->distance_aver;
+    
+    // 计算位置误差并更新位置PID
+    leftMotor->posPID.ref = ref;
+    leftMotor->posPID.fdb = commonPositionFdb;
+    PID_Calc(&leftMotor->posPID);
+    
+    rightMotor->posPID.ref = ref;
+    rightMotor->posPID.fdb = commonPositionFdb;
+    PID_Calc(&rightMotor->posPID);
+    
+    // 应用负载补偿系数和旋转方向，调整左右电机的速度目标
+    float leftSpeedRef = leftMotor->posPID.output * leftCompensation * leftDirection;
+    float rightSpeedRef = rightMotor->posPID.output * rightCompensation * rightDirection;
+    
+    // 更新速度PID
+    leftMotor->speedPID.ref = leftSpeedRef;
+    leftMotor->speedPID.fdb = leftMotor->FdbData.rpm;
+    PID_Calc(&leftMotor->speedPID);
+    
+    rightMotor->speedPID.ref = rightSpeedRef;
+    rightMotor->speedPID.fdb = rightMotor->FdbData.rpm;
+    PID_Calc(&rightMotor->speedPID);
+}
+

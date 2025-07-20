@@ -13,7 +13,8 @@ typedef struct
 
 typedef struct
 {
-    DJI_t *Motor_X;
+    DJI_t *Motor_XL;
+    DJI_t *Motor_XR;
     DJI_t *Motor_Y;
     DJI_t *Motor_Z;
     DJI_t *Motor_S;

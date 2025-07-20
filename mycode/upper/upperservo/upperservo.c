@@ -25,7 +25,7 @@ void upperservotask(void const * argument)
     STP_23L_Decode(Rxbuffer_1, &Lidar1);//激光是轴的
     STP_23L_Decode(Rxbuffer_2, &Lidar2);//激光是长轴的
     //计算
-    positionServo_lidar(mygantry.gantrypos.x, mygantry.Motor_X, Lidar1);//x轴长
+    synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1, 1.0, 1.0, -1, 1);
     positionServo_lidar(mygantry.gantrypos.y ,mygantry.Motor_Y, Lidar2);//y轴宽
 
     positionServo(mygantry.gantrypos.z, mygantry.Motor_Z);
@@ -34,9 +34,8 @@ void upperservotask(void const * argument)
     CanTransmit_DJI_1234(&hcan1,
                              -1 * mygantry.Motor_Y->speedPID.output,
                              mygantry.Motor_Y->speedPID.output,
-                            -1 * mygantry.Motor_X->speedPID.output,
-                             mygantry.Motor_X->speedPID.output);
-    
+                             mygantry.Motor_XL->speedPID.output,
+                             mygantry.Motor_XR->speedPID.output);
     CanTransmit_DJI_5678(&hcan1,
                              mygantry.Motor_Z->speedPID.output ,
                              0 ,
@@ -50,13 +49,14 @@ void upperservotask(void const * argument)
 }
 void gantry_Motor_init()               //电机初始化
 {
-    
-    mygantry.Motor_X  = &hDJI[3];
+    mygantry.Motor_XL  = &hDJI[2];
+    mygantry.Motor_XR  = &hDJI[3];
     mygantry.Motor_Y = &hDJI[1];
     mygantry.Motor_Z = &hDJI[4];
     //mygantry.Motor_S = &hDJI[5];
 
     hDJI[1].motorType  = M2006;//y
+    hDJI[2].motorType  = M3508;
     hDJI[3].motorType  = M3508;//x
     hDJI[4].motorType  = M3508;//z
     //hDJI[5].motorType  = M2006;//degree
@@ -68,10 +68,11 @@ void gantry_Motor_init()               //电机初始化
     //pid_reset(&(mygantry.Motor_X->speedPID), 1.0, 0.01, 0.01);//两个箱子
 
 
-    pid_reset(&(mygantry.Motor_X->speedPID), 12, 0.2, 5.0);//x  //10.0 0.5 0.05
-    
+    pid_reset(&(mygantry.Motor_XR->speedPID), 12, 0.2, 5.0);//x  //10.0 0.5 0.05
+    pid_reset(&(mygantry.Motor_XR->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
 
-    pid_reset(&(mygantry.Motor_X->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
+    pid_reset(&(mygantry.Motor_XL->speedPID), 12, 0.2, 5.0);//x  //10.0 0.5 0.05
+    pid_reset(&(mygantry.Motor_XL->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
     //pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
     //pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
 
@@ -82,20 +83,16 @@ void gantry_Motor_init()               //电机初始化
     //pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);//y
 
 
-    pid_reset(&(mygantry.Motor_Z->posPID), 8.0, 0.0, 0);//z
-    
-    //pid_reset(&(mygantry.Motor_S->speedPID), 12.0, 0.5, 5.0);//x  //  12.0  0.5  5.0空转    12.0 0.12 4.0一个箱子  //12.0 0.02 2.0 两个箱子
-    //pid_reset(&(mygantry.Motor_S->speedPID), 12.0, 0.12, 4.0);
-    //pid_reset(&(mygantry.Motor_S->speedPID), 12.0, 0.032, 2.5); 
-    //pid_reset(&(mygantry.Motor_S->posPID),15.0, 0.0, 0);//z   15空转  2.0一个箱子 1.5两个箱子
+    pid_reset(&(mygantry.Motor_Z->posPID), 20.0, 0.0, 0);//z
 
-
-    mygantry.Motor_X->speedPID.outputMax = 20000;
+    mygantry.Motor_XL->speedPID.outputMax = 20000;
+    mygantry.Motor_XR->speedPID.outputMax = 20000;
     mygantry.Motor_Y->speedPID.outputMax = 20000;
     mygantry.Motor_Z->speedPID.outputMax = 10000;
     //mygantry.Motor_S->speedPID.outputMax = 8000;
 
-    mygantry.Motor_X->posPID.outputMax = 50000;
+    mygantry.Motor_XL->posPID.outputMax = 50000;
+    mygantry.Motor_XR->posPID.outputMax = 50000;
     mygantry.Motor_Y->posPID.outputMax = 50000;
     mygantry.Motor_Z->posPID.outputMax = 50000;
     //mygantry.Motor_S->speedPID.outputMax = 8000;
