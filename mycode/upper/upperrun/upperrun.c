@@ -208,6 +208,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.y = y_qu_1;
         osDelay(500);
         mygantry.gantrypos.x = x_qu;
+        motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff1 < 4 && diff2 < 4)
@@ -265,7 +266,7 @@ void uppergoingtask(void const * argument)
       if(runflag == 8)
       {
         motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
-        osDelay(50);
+        osDelay(10);
         runflag = 9;
       }
       if(runflag == 9)
@@ -283,6 +284,7 @@ void uppergoingtask(void const * argument)
       if(runflag == 10)
       {
         mygantry.gantrypos.x = x_qu;
+        motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         if(diff < 4)
         {
@@ -343,6 +345,18 @@ void uppergoingtask(void const * argument)
           else if(mapping[3] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
           else if(mapping[3] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
           osDelay(500);
+          if(mapping[3] < 5 && mapping[3] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[3] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[3] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[3] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          else if(mapping[3] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          osDelay(500);
+          if(mapping[3] < 5 && mapping[3] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[3] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[3] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[3] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          else if(mapping[3] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          osDelay(500);
           step00 = 100;
         }
         if(step00 == 100)
@@ -358,13 +372,13 @@ void uppergoingtask(void const * argument)
           else if(mapping[3] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(mapping[3] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
@@ -383,13 +397,11 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen); 
             osDelay(100);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
             osDelay(100);
             step00 = 2;
-
           }
         }
         if(step00 == 2)
@@ -398,7 +410,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step00 = 200;
             osDelay(50);
@@ -411,13 +423,25 @@ void uppergoingtask(void const * argument)
           else if(mapping[0] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[0] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[0] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
           if(mapping[0] < 5 && mapping[0] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
           else if(mapping[0] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
           else if(mapping[0] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[0] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[0] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
+          if(mapping[0] < 5 && mapping[0] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[0] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[0] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[0] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[0] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
+          if(mapping[0] < 5 && mapping[0] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[0] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[0] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[0] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[0] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
           step00 = 3;
         }
         if(step00 == 3)
@@ -433,13 +457,13 @@ void uppergoingtask(void const * argument)
           else if(mapping[0] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(mapping[0] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
@@ -458,10 +482,9 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
             osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-            osDelay(500);
-            
+            osDelay(200);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
             step00 = 5;
           }
@@ -469,16 +492,12 @@ void uppergoingtask(void const * argument)
         if(step00 == 5)
         {
           mygantry.gantrypos.x = x_middle;
+          osDelay(100);
           mygantry.gantrypos.y = y_middle;
-          float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
-          float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 70)
-          {
-            step00 = 6;//[3]运动到位
-            motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
-            osDelay(20);
-            jiaquzhuangtai = 2;
-          }
+          motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
+          osDelay(100);
+          jiaquzhuangtai = 2;
+        
         }
       }
       else if(mapping[0]==0 && mapping[3]!=0) //先放[3]又因为[3]不是0 可以先放
@@ -525,20 +544,19 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           { 
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
-            osDelay(50);
             step01 = 1;//[3]运动到位
           }
         }
@@ -549,12 +567,11 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
-            osDelay(500);
-            
+            osDelay(200);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
             step01 = 2;
           }
@@ -565,10 +582,10 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step01 = 3;
-            osDelay(50);
+            osDelay(10);
           }
         }
         if(step01 == 3) //现在是S180S270
@@ -578,13 +595,25 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
           if(num < 5 && num > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
           else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
+          if(num < 5 && num > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
+          if(num < 5 && num > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
           step01 = 400 ;
         }
         if(step01 == 400)
@@ -600,19 +629,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           { 
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
-            
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             osDelay(50);
             step01 = 4;//[3]运动到位
@@ -627,27 +655,23 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
             osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
             step01 = 5;
           }
         }
         if(step01 == 5)
         {
-          mygantry.gantrypos.x = x_middle;
           mygantry.gantrypos.y = y_middle;
-          float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
-          float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
           osDelay(100);
+          mygantry.gantrypos.x = x_middle;
+          osDelay(50);
           motor_controlmode(&mi_motor[0], 0, 0, 0, 1, 0.5);
-          if(diff1 < 100 && diff2 < 80)
-          {
-            step01 = 6;//[3]运动到位
-            motor_controlmode(&mi_motor[0], 0, 0, 0, 1, 0.5);
-            jiaquzhuangtai = 2;
-          }
+          step01 = 6;//[3]运动到位
+          osDelay(20);
+          motor_controlmode(&mi_motor[0], 0, 0, 0, 1, 0.5);
+          jiaquzhuangtai = 2;
         } 
       }
       else if(mapping[0] != 0 && mapping[3]==0)//mapping[0] = 1; mapping[3]=0
@@ -661,13 +685,25 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
-          osDelay(1000);
+          osDelay(500);
           if(num > 2 && num < 5 ) motor_controlmode(&mi_motor[0], 0, S0, 0, 2.2, 1.5);
           else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 2.2, 1.5);
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
-          osDelay(1000);
+          osDelay(500);
+          if(num > 2 && num < 5 ) motor_controlmode(&mi_motor[0], 0, S0, 0, 2.2, 1.5);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          osDelay(500);
+          if(num > 2 && num < 5 ) motor_controlmode(&mi_motor[0], 0, S0, 0, 2.2, 1.5);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          osDelay(500);
           step02 = 100 ;
         }
         if(step02 == 100)
@@ -683,13 +719,13 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           { 
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
@@ -706,12 +742,12 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaifang);//
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
-            
+            osDelay(200);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);//
+            osDelay(200);
             step02 = 2;
           }
         }
@@ -721,7 +757,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step02 = 300;
             osDelay(50);
@@ -734,13 +770,25 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
           if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
           else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
+          if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          osDelay(500);
+          if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          osDelay(500);
           step02 = 3;
         }
         if(step02 == 3)
@@ -761,24 +809,24 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.y = y_fang_5;
             break;
             }
-            osDelay(200);
+            osDelay(100);
             mygantry.gantrypos.x = x_fang_4;
           }
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             step02 = 4;//[3]运动到位
           }
@@ -790,27 +838,22 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhfang);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
-            
-            osDelay(500);
+            osDelay(200);
             step02 = 5;
           }
         }
         if(step02 == 5)
         {
           mygantry.gantrypos.x = x_middle;
+          osDelay(100);
           mygantry.gantrypos.y = y_middle;
-          float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
-          float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
-          {
-            step02 = 6;//[3]运动到位
-            osDelay(500);
-          }
+          step02 = 6;//[3]运动到位
+          osDelay(200);
         } 
         if(step02 == 6)
         {
@@ -825,6 +868,7 @@ void uppergoingtask(void const * argument)
       if(runflag == 15)//让夹爪先升起来
       {
         mygantry.gantrypos.z = z_down_up;
+        motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff < 4)
         {
@@ -838,13 +882,8 @@ void uppergoingtask(void const * argument)
         __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
         mygantry.gantrypos.y  = y_middle;
         mygantry.gantrypos.x  = x_middle;
-        float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        float diff2 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff1 < 100 && diff2 < 80)
-        {
-          osDelay(10);
-          runflag = 2;          
-        }
+        osDelay(100);
+        runflag = 2;          
       }
       if(runflag == 2)
       {
@@ -860,6 +899,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.y = y_qu_2;
         mygantry.gantrypos.x = x_qu;
+        motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff1 < 4 && diff2 < 4)
@@ -875,7 +915,6 @@ void uppergoingtask(void const * argument)
         if(diff < 4)
         {
           __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-          
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
           osDelay(10);
           runflag = 5;
@@ -898,19 +937,20 @@ void uppergoingtask(void const * argument)
         if(diff < 100)
         {
           runflag = 7;
-          osDelay(50);
+          osDelay(10);
         }
       }
       if(runflag == 7)
       {
         mygantry.gantrypos.y = y_middle;
         mygantry.gantrypos.z = z_upeer_down;
+        osDelay(100);
         motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
         float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff1 < 10 && diff2 < 4)
+        if(diff1 < 20 && diff2 < 6)
         {
-          osDelay(100);
+          osDelay(10);
           runflag = 9;
         }
       }
@@ -919,7 +959,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.y = y_qu_2;
         mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        if(diff < 80)
+        if(diff < 40)
         {
           motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
           runflag = 10;
@@ -929,11 +969,12 @@ void uppergoingtask(void const * argument)
       if(runflag == 10)
       {
         mygantry.gantrypos.x = x_qu;
+        motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         if(diff < 6)
         {
           runflag = 11;
-          osDelay(50);
+          osDelay(10);
         }
       }
       if(runflag == 11)
@@ -942,11 +983,9 @@ void uppergoingtask(void const * argument)
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff < 4)
         {
-          osDelay(100);
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);
-          osDelay(200);
+          osDelay(100);
           runflag = 12;
         }
       }
@@ -954,7 +993,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 4)
+        if(diff < 6)
         {
           runflag = 13;
           osDelay(50);
@@ -963,16 +1002,11 @@ void uppergoingtask(void const * argument)
       if(runflag == 13)
       {
         mygantry.gantrypos.x  = x_middle;
-        osDelay(700);
-        float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         mygantry.gantrypos.y  = y_middle;
-        float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        if(diff1 < 100 && diff2 < 80)
-        {
-          runflag = 15;
-          jiaquzhuangtai = 3 ;
-          osDelay(50);
-        }
+        osDelay(200);
+        runflag = 15;
+        jiaquzhuangtai = 3 ;
+        osDelay(50);
       }
     }
     if(jiaquzhuangtai == 3 )
@@ -986,13 +1020,25 @@ void uppergoingtask(void const * argument)
           else if(mapping[4] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
           else if(mapping[4] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
           else if(mapping[4] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
-          osDelay(1000);
+          osDelay(500);
           if(mapping[4] < 5 && mapping[4] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
           else if(mapping[4] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
           else if(mapping[4] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
           else if(mapping[4] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
           else if(mapping[4] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
-          osDelay(1000);
+          osDelay(500);
+          if(mapping[4] < 5 && mapping[4] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[4] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[4] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[4] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          else if(mapping[4] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          osDelay(500);
+          if(mapping[4] < 5 && mapping[4] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[4] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[4] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[4] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          else if(mapping[4] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          osDelay(500);
           step10 = 100;
         }
         if(step10 == 100)
@@ -1009,18 +1055,18 @@ void uppergoingtask(void const * argument)
           else if(mapping[4] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(mapping[4] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 6 && diff2 < 4)
+          if(diff1 < 4 && diff2 < 4)
           {
             step10 = 1;
           }
@@ -1033,11 +1079,10 @@ void uppergoingtask(void const * argument)
           {
             osDelay(100);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
-            osDelay(300);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
             osDelay(300);
             step10 = 2;
@@ -1049,7 +1094,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step10 = 200;
             osDelay(50);
@@ -1062,13 +1107,25 @@ void uppergoingtask(void const * argument)
           else if(mapping[1] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[1] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[1] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
           if(mapping[1] < 5 && mapping[1] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
           else if(mapping[1] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
           else if(mapping[1] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[1] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[1] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
+          if(mapping[1] < 5 && mapping[1] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[1] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[1] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[1] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[1] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
+          if(mapping[1] < 5 && mapping[1] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[1] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[1] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[1] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[1] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
           step10 = 3;
         }
         if(step10 == 3)
@@ -1084,54 +1141,50 @@ void uppergoingtask(void const * argument)
           else if(mapping[1] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(mapping[1] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 6 && diff2 < 4)
+          if(diff1 < 4 && diff2 < 4)
           {
             step10 = 4;//[3]运动到位
           }
         }
         if(step10 == 4)
         {
-          osDelay(100);
           mygantry.gantrypos.z = z_zhiduo_fang;
           float diff = fabs(mygantry.gantrypos.z-hDJI[4].AxisData.AxisAngle_inDegree);
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
-            osDelay(500);
+            osDelay(200);
             step10 = 5;
           }
         }
         if(step10 == 5)
         {
           mygantry.gantrypos.x = x_middle;
+          osDelay(200);
           mygantry.gantrypos.y = y_middle;
+          osDelay(200);
+          mygantry.gantrypos.z = z_middle;
           osDelay(100);
           motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
-          float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
-          float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
-          {
-            step10 = 6;//[3]运动到位
-            motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
-            jiaquzhuangtai = 4;
-          }
+          osDelay(100);
+          motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
+          jiaquzhuangtai = 4;
         }
         //转到0度   jiaquzhuangtai = 4;
       }
@@ -1145,13 +1198,25 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
-          osDelay(1000);
+          osDelay(500);
           if(num > 2 && num < 5 )  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5);     //不需要旋转
           else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5);
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
-          osDelay(1000);
+          osDelay(500);
+          if(num > 2 && num < 5 )  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5);     //不需要旋转
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          osDelay(500);
+          if(num > 2 && num < 5 )  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5);     //不需要旋转
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
+          osDelay(500);
           step11 = 100;
         }
         if(step11 == 100)
@@ -1177,18 +1242,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 6 && diff2 < 4)
+          if(diff1 < 4 && diff2 < 4)
           {
             step11 = 1;
           }
@@ -1200,11 +1265,10 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
             osDelay(200);
             step11 = 2;
@@ -1216,7 +1280,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step11 = 3;
             osDelay(50);
@@ -1229,13 +1293,25 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
           if(num < 6 && num > 1)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
           else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
+          if(num < 6 && num > 1)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
+          if(num < 6 && num > 1)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
           step11 = 400 ;
         }
         if(step11 == 400)
@@ -1261,18 +1337,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             step11 = 4;
             osDelay(10);
@@ -1285,31 +1361,28 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle+100;
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
-            
             osDelay(100);
             step11 = 5;
           }
         }
         if(step11 == 5)
         {
-          mygantry.gantrypos.x = x_middle;
           mygantry.gantrypos.y = y_middle;
+          osDelay(200);
+          mygantry.gantrypos.x = x_middle;
           osDelay(100);
+          mygantry.gantrypos.z = z_middle;
           motor_controlmode(&mi_motor[0], 0, 0, 0, 1, 0.5);
-          float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
-          float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
-          {
-            step11 = 6;//[3]运动到位
-            motor_controlmode(&mi_motor[0], 0, 0, 0, 1, 0.5);
-            jiaquzhuangtai = 4;
-          }
-        } 
-        //jiaquzhuangtai = 4;       
+          step11 = 6;//[3]运动到位
+          osDelay(20);
+          motor_controlmode(&mi_motor[0], 0, 0, 0, 1, 0.5);
+          jiaquzhuangtai = 4;
+          
+        }    
       }
       else if(mapping[1]!=0 && mapping[4]==0)
       {
@@ -1322,13 +1395,13 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
-          osDelay(1000);
+          osDelay(500);
           if(num > 2 && num < 5 ) motor_controlmode(&mi_motor[0], 0, S0, 0, 2.2, 1.5);
           else if(num == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 2.2, 1.5);
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 2.2, 1.5);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5);
-          osDelay(1000);
+          osDelay(500);
           step12 = 100 ;
         }
         if(step12 == 100)
@@ -1354,18 +1427,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 6 && diff2 < 4)
+          if(diff1 < 4 && diff2 < 4)
           {
             step12 = 1;//[3]运动到位
           }
@@ -1377,13 +1450,12 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);//
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);//
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
-            osDelay(500);
+            osDelay(200);
             step12 = 2;
           }
         }
@@ -1394,13 +1466,25 @@ void uppergoingtask(void const * argument)
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
           if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
           else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
           else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
           else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
           else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
+          if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          osDelay(500);
+          if(num < 5 && num > 2) motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          else if(num == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 1.8, 1.0);
+          else if(num == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 1.8, 1.0);
+          else if(num == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          else if(num == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          osDelay(500);
           step12 = 3;//[3]运动到位
         }
         if(step12 == 3)
@@ -1426,18 +1510,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 6 && diff2 < 4)
+          if(diff1 < 4 && diff2 < 4)
           {
             step12 = 4;//[3]运动到位
           }
@@ -1449,25 +1533,25 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
-            osDelay(300);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle+100;
-            osDelay(300);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
-            
-            osDelay(300);
+            osDelay(100);
             step12 = 5;
           }
         }
         if(step12 == 5)
         {
+          mygantry.gantrypos.y = y_middle; 
+          osDelay(200);
           mygantry.gantrypos.x = x_middle;
-          mygantry.gantrypos.y = y_middle;
           osDelay(200);
           motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step12 = 6;//[3]运动到位
             osDelay(10);
@@ -1500,13 +1584,9 @@ void uppergoingtask(void const * argument)
         __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
         mygantry.gantrypos.y  = y_middle;
         mygantry.gantrypos.x  = x_middle;
-        float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        float diff2 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff1 < 100 && diff2 < 80)
-        {
-          osDelay(100);
-          runflag = 2;          
-        }
+        osDelay(200);
+        runflag = 2;          
+        
       }
       if(runflag == 2)
       {
@@ -1538,9 +1618,8 @@ void uppergoingtask(void const * argument)
         if(diff < 4)
         {
           __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
-          
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
-          osDelay(200);
+          osDelay(100);
           runflag = 5;
         }
       }
@@ -1602,6 +1681,7 @@ void uppergoingtask(void const * argument)
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         if(diff < 4)
         {
+          motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
           runflag = 11;
           osDelay(50);
         }
@@ -1614,7 +1694,6 @@ void uppergoingtask(void const * argument)
         {
           osDelay(50);
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);
           osDelay(100);
           runflag = 12;
@@ -1634,17 +1713,12 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.x  = x_middle;
         osDelay(500);
-        float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         mygantry.gantrypos.y  = y_middle;
-        float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        if(diff1 < 70 && diff2 < 50)
-        {
-          runflag = 15;
-          jiaquzhuangtai = 5 ;
-          osDelay(50);
-        }
+        runflag = 15;
+        jiaquzhuangtai = 5 ;
+        osDelay(200);
       }
-      //
+    
     }
     if(jiaquzhuangtai == 5 )
     {
@@ -1657,13 +1731,25 @@ void uppergoingtask(void const * argument)
           else if(mapping[5] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
           else if(mapping[5] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
           else if(mapping[5] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
-          osDelay(1000);
+          osDelay(500);
           if(mapping[5] < 5 && mapping[5] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
           else if(mapping[5] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
           else if(mapping[5] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
           else if(mapping[5] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
           else if(mapping[5] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
-          osDelay(1000);
+          osDelay(500);
+          if(mapping[5] < 5 && mapping[5] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[5] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[5] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[5] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          else if(mapping[5] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          osDelay(500);
+          if(mapping[5] < 5 && mapping[5] > 2)  motor_controlmode(&mi_motor[0], 0, S180, 0, 2.2, 1.5); //先放3
+          else if(mapping[5] == 2) motor_controlmode(&mi_motor[0], 0, S180+errorth, 0, 2.2, 1.5); 
+          else if(mapping[5] == 5) motor_controlmode(&mi_motor[0], 0, S180-errorth, 0, 2.2, 1.5); 
+          else if(mapping[5] == 1) motor_controlmode(&mi_motor[0], 0, S270, 0, 2.2, 1.5); 
+          else if(mapping[5] == 6) motor_controlmode(&mi_motor[0], 0, S90, 0, 2.2, 1.5); 
+          osDelay(500);
           step20 = 100;
         }
         if(step20 == 100)
@@ -1689,18 +1775,18 @@ void uppergoingtask(void const * argument)
           else if(mapping[5] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(mapping[5] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             step20 = 1;//[0]运动到位
           }
@@ -1714,11 +1800,10 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
             osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
-            osDelay(500);
+            osDelay(200);
             step20 = 2;
           }
         }
@@ -1728,7 +1813,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step20 = 200;
             osDelay(50);
@@ -1741,13 +1826,25 @@ void uppergoingtask(void const * argument)
           else if(mapping[2] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[2] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[2] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
           if(mapping[2] < 5 && mapping[2] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
           else if(mapping[2] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
           else if(mapping[2] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
           else if(mapping[2] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
           else if(mapping[2] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
-          osDelay(1000);
+          osDelay(500);
+          if(mapping[2] < 5 && mapping[2] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[2] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[2] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[2] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[2] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
+          if(mapping[2] < 5 && mapping[2] > 2)  motor_controlmode(&mi_motor[0], 0, S0, 0, 1.8, 1.0); //彩色的夹爪面向纸垛
+          else if(mapping[2] == 2) motor_controlmode(&mi_motor[0], 0, S0+errorth, 0, 1.8, 1.0);
+          else if(mapping[2] == 5) motor_controlmode(&mi_motor[0], 0, S0-errorth, 0, 1.8, 1.0);
+          else if(mapping[2] == 1) motor_controlmode(&mi_motor[0], 0, S90, 0, 1.8, 1.0);
+          else if(mapping[2] == 6) motor_controlmode(&mi_motor[0], 0, S270, 0, 1.8, 1.0);
+          osDelay(500);
           step20 = 3;
         }
         if(step20 == 3)
@@ -1773,18 +1870,18 @@ void uppergoingtask(void const * argument)
           else if(mapping[2] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(mapping[2] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 3)
           {
             step20 = 4;//[3]运动到位
           }
@@ -1796,11 +1893,10 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
             step20 = 5;
           }
@@ -1875,18 +1971,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             step21 = 1;//[3]运动到位
           }
@@ -1898,11 +1994,10 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
             step21 = 2;
           }
@@ -1913,7 +2008,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 100 && diff2 < 80)
+          if(diff1 < 120 && diff2 < 80)
           {
             step21 = 3;
             osDelay(50);
@@ -1970,18 +2065,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             step21 = 4;//[3]运动到位
           }
@@ -1993,13 +2088,12 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle+100;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
-            osDelay(500);
+            osDelay(200);
             step21 = 5;
           }
         }
@@ -2072,18 +2166,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             step22 = 1;//[3]运动到位
           }
@@ -2097,11 +2191,10 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);//
             osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);//
-            
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
-            osDelay(500);
+            osDelay(200);
             step22 = 2;
           }
         }
@@ -2111,7 +2204,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 70 && diff2 < 50)
+          if(diff1 < 120 && diff2 < 80)
           {
             step22 = 300;
             osDelay(50);
@@ -2168,18 +2261,18 @@ void uppergoingtask(void const * argument)
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
-            osDelay(1000);
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_2;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          if(diff1 < 8 && diff2 < 6)
+          if(diff1 < 4 && diff2 < 4)
           {
             step22 = 4;//[3]运动到位
           }
@@ -2191,13 +2284,12 @@ void uppergoingtask(void const * argument)
           if(diff < 4)
           {
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
-            osDelay(500);
+            osDelay(200);
             mygantry.gantrypos.z = z_middle+100;
-            osDelay(500);
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
-            
-            osDelay(500);
+            osDelay(200);
             step22 = 5;
           }
         }

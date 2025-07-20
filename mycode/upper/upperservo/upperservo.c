@@ -83,7 +83,7 @@ void gantry_Motor_init()               //电机初始化
     //pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);//y
 
 
-    pid_reset(&(mygantry.Motor_Z->posPID), 20.0, 0.0, 0);//z
+    pid_reset(&(mygantry.Motor_Z->posPID), 15.0, 0.0, 0);//z
 
     mygantry.Motor_XL->speedPID.outputMax = 20000;
     mygantry.Motor_XR->speedPID.outputMax = 20000;
