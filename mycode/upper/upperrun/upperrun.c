@@ -155,7 +155,7 @@ void uppergoingtask(void const * argument)
   float y_fang_2 = 1385.0;
   float y_fang_3 = 954.0;
   float y_fang_4 = 489.5;
-  float y_fang_5 = 45.5;
+  float y_fang_5 = 35.5;
   float y_fang_6 = 223.0;
 
   matchingnum(mapping, tx_buffer4);
@@ -286,7 +286,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x = x_qu;
         motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff < 4)
+        if(diff < 2)
         {
           runflag = 11;
           osDelay(10);
@@ -971,7 +971,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x = x_qu;
         motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff < 6)
+        if(diff < 3)
         {
           runflag = 11;
           osDelay(10);
@@ -1679,7 +1679,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.x = x_qu;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff < 4)
+        if(diff < 3)
         {
           motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
           runflag = 11;
