@@ -37,6 +37,9 @@ extern uint8_t uart5_rx[1];
 extern char tx_buffer4[6]; 
 extern char tx_buffer5[6]; 
 
+extern float MIkp;
+extern float MIkd;
+
 extern uint8_t Rxbuffer_1[195];
 extern uint8_t Rxbuffer_2[195];
 extern uint8_t Rxbuffer_6[195];
@@ -45,4 +48,11 @@ extern LidarPointTypedef Lidar1;
 extern LidarPointTypedef Lidar2;
 
 extern uint16_t jiaquzhuangtai ;
+
+extern float S0;
+extern float S90;
+extern float S180;
+extern float S270;
+
+extern float errorth;
 #endif // !__PARAM_H__PARAM_H__

@@ -117,3 +117,29 @@ extern void set_zeropos_cybergear(MI_Motor *Motor);
 extern void set_CANID_cybergear(MI_Motor *Motor, uint8_t CAN_ID);
 extern void init_cybergear(MI_Motor *Motor, uint8_t Can_Id, uint8_t mode);
 extern void motor_controlmode(MI_Motor *Motor,float torque, float MechPosition, float speed, float kp, float kd);
+
+void noneS0();
+void noneS90();
+void noneS180();
+void noneS270();
+
+void oneS0();
+void oneS90();
+void oneS180();
+void oneS270();
+
+void twoS0();
+void twoS90();
+void twoS180();
+void twoS270();
+
+void oneS180up();
+void oneS180down();
+void twoS180up();
+void twoS180down();
+
+void oneS0up();
+void oneS0down();
+void twoS0up();
+void twoS0down();
+
