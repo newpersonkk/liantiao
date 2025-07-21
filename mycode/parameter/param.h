@@ -55,4 +55,6 @@ extern float S180;
 extern float S270;
 
 extern float errorth;
+
+extern float littlenum;
 #endif // !__PARAM_H__PARAM_H__

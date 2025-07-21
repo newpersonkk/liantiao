@@ -253,8 +253,8 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.y = y_middle;
         mygantry.gantrypos.z = z_upeer_down;
-        osDelay(100);
-        oneS180();
+        osDelay(300);
+        mygantry.gantrypos.degree = S180;
         float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff1 < 50 && diff2 < 30)
@@ -265,7 +265,6 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 8)
       {
-        oneS180();//转180度
         osDelay(10);
         runflag = 9;
       }
@@ -331,31 +330,12 @@ void uppergoingtask(void const * argument)
       {
         if(step00 == 0)
         {
-          if(mapping[3] < 5 && mapping[3] > 2)
-          {
-            twoS180();
-            osDelay(1000);
-          }
-          else if(mapping[3] == 2)
-          {
-            twoS180up();
-            osDelay(1000);
-          }
-          else if(mapping[3] == 5)
-          {
-            twoS180down();
-            osDelay(1000);
-          }
-          else if(mapping[3] == 1)
-          {
-            twoS270();
-            osDelay(2000);
-          }
-          else if(mapping[3] == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+          if(mapping[3] < 5 && mapping[3] > 2)  mygantry.gantrypos.degree = S180;
+          else if(mapping[3] == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(mapping[3] == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(mapping[3] == 1) mygantry.gantrypos.degree = S270;
+          else if(mapping[3] == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step00 = 100;
         }
         if(step00 == 100)
@@ -417,31 +397,12 @@ void uppergoingtask(void const * argument)
         }
         if(step00 == 200)//一个箱子
         {
-          if(mapping[0] < 5 && mapping[0] > 2) 
-          {
-            oneS0();
-            osDelay(1000);
-          }
-          else if(mapping[0] == 2)
-          {
-            oneS0up();
-            osDelay(1000);
-          }
-          else if(mapping[0] == 5)
-          {
-            oneS0down();
-            osDelay(1000);
-          }
-          else if(mapping[0] == 1)
-          {
-            oneS90();
-            osDelay(2000);
-          }
-          else if(mapping[0] == 6)
-          {
-            oneS270();
-            osDelay(2000);
-          }
+          if(mapping[0] < 5 && mapping[0] > 2)  mygantry.gantrypos.degree = S0;
+          else if(mapping[0] == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(mapping[0] == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(mapping[0] == 1) mygantry.gantrypos.degree = S90;
+          else if(mapping[0] == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step00 = 3;
         }
         if(step00 == 3)
@@ -494,8 +455,8 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.x = x_middle;
           osDelay(200);
           mygantry.gantrypos.y = y_middle;
-          noneS0();
-          osDelay(200);
+          osDelay(500);
+          mygantry.gantrypos.degree = S0;
           jiaquzhuangtai = 2;
         
         }
@@ -505,31 +466,12 @@ void uppergoingtask(void const * argument)
         uint16_t num = mapping[0] + mapping[3];
         if(step01 == 0)
         {
-          if(num  < 5 && num  > 2)
-          {
-            twoS180();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            twoS180up();
-            osDelay(1000);
-          }
-          else if(num  == 5)
-          {
-            twoS180down();
-            osDelay(1000);
-          }
-          else if(num  == 1)
-          {
-            twoS270();
-            osDelay(2000);
-          }
-          else if(num  == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
+          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S270;
+          else if(num == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step01 = 100;
         }
         if(step01 == 100)
@@ -591,31 +533,12 @@ void uppergoingtask(void const * argument)
         }
         if(step01 == 3) //现在是S180S270
         {
-          if(num < 5 && num > 2) 
-          {
-            oneS0();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            oneS0up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            oneS0down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            oneS90();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            oneS270();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
+          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S90;
+          else if(num == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step01 = 400 ;
         }
         if(step01 == 400)
@@ -666,12 +589,12 @@ void uppergoingtask(void const * argument)
         if(step01 == 5)
         {
           mygantry.gantrypos.y = y_middle;
-          osDelay(100);
+          osDelay(200);
           mygantry.gantrypos.x = x_middle;
-          osDelay(50);
-          noneS0();
+          osDelay(500);
           step01 = 6;//[3]运动到位
           osDelay(20);
+          mygantry.gantrypos.degree = S0;
           jiaquzhuangtai = 2;
         } 
       }
@@ -681,31 +604,12 @@ void uppergoingtask(void const * argument)
         uint16_t num = mapping[0] + mapping[3];// num = 1
         if(step02 == 0)
         {
-          if(num > 2 && num < 5 )
-          {
-            twoS0();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            twoS0up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            twoS0down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            twoS90();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
+          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S90;
+          else if(num == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step02 = 100 ;
         }
         if(step02 == 100)
@@ -767,31 +671,12 @@ void uppergoingtask(void const * argument)
         }
         if(step02 == 300)
         {
-          if(num < 5 && num > 2)
-          {
-            oneS180();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            oneS180up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            oneS180down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            oneS270();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            oneS90();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
+          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S270;
+          else if(num == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step02 = 3;
         }
         if(step02 == 3)
@@ -853,11 +738,11 @@ void uppergoingtask(void const * argument)
         if(step02 == 5)
         {
           mygantry.gantrypos.x = x_middle;
-          osDelay(100);
+          osDelay(200);
           mygantry.gantrypos.y = y_middle;
           step02 = 6;//[3]运动到位
-          osDelay(200);
-          noneS0();
+          osDelay(600);
+          mygantry.gantrypos.degree = S0;
         } 
         if(step02 == 6)
         {
@@ -871,7 +756,7 @@ void uppergoingtask(void const * argument)
       if(runflag == 15)//让夹爪先升起来
       {
         mygantry.gantrypos.z = z_down_up;
-        noneS0();
+        mygantry.gantrypos.degree = S0;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff < 4)
         {
@@ -902,7 +787,6 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.y = y_qu_2;
         mygantry.gantrypos.x = x_qu;
-        noneS0();
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff1 < 4 && diff2 < 4)
@@ -948,7 +832,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.y = y_middle;
         mygantry.gantrypos.z = z_upeer_down;
         osDelay(100);
-        oneS180();
+        mygantry.gantrypos.degree = S180;
         osDelay(200);
         float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
@@ -1017,33 +901,13 @@ void uppergoingtask(void const * argument)
     {
       if(mapping[1]!=0 && mapping[4]!=0)
       {
-        if(step10 == 0)
-        {
-          if(mapping[4] < 5 && mapping[4] > 2)
-          {
-            twoS180();
-            osDelay(1000);
-          }
-          else if(mapping[4] == 2)
-          {
-            twoS180up();
-            osDelay(1000);
-          }
-          else if(mapping[4] == 5)
-          {
-            twoS180down();
-            osDelay(1000);
-          }
-          else if(mapping[4] == 1)
-          {
-            twoS270();
-            osDelay(2000);
-          }
-          else if(mapping[4] == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+        if(step10 == 0){
+        if(mapping[4] < 5 && mapping[4] > 2)  mygantry.gantrypos.degree = S180;
+          else if(mapping[4] == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(mapping[4] == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(mapping[4] == 1) mygantry.gantrypos.degree = S270;
+          else if(mapping[4] == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step10 = 100;
         }
         if(step10 == 100)
@@ -1107,31 +971,12 @@ void uppergoingtask(void const * argument)
         }
         if(step10 == 200)
         {
-          if(mapping[1] < 5 && mapping[1] > 2) 
-          {
-            oneS0();
-            osDelay(1000);
-          }
-          else if(mapping[1] == 2)
-          {
-            oneS0up();
-            osDelay(1000);
-          }
-          else if(mapping[1] == 5)
-          {
-            oneS0down();
-            osDelay(1000);
-          }
-          else if(mapping[1] == 1)
-          {
-            oneS90();
-            osDelay(2000);
-          }
-          else if(mapping[1] == 6)
-          {
-            oneS270();
-            osDelay(2000);
-          }
+          if(mapping[1] < 5 && mapping[1] > 2)  mygantry.gantrypos.degree = S0;
+          else if(mapping[1] == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(mapping[1] == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(mapping[1] == 1) mygantry.gantrypos.degree = S90;
+          else if(mapping[1] == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step10 = 3;
         }
         if(step10 == 3)
@@ -1186,8 +1031,8 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           osDelay(200);
           mygantry.gantrypos.z = z_middle;
-          osDelay(100);
-          noneS0();
+          osDelay(500);
+          mygantry.gantrypos.degree = S0;
           osDelay(100);
           jiaquzhuangtai = 4;
         }
@@ -1196,33 +1041,13 @@ void uppergoingtask(void const * argument)
       else if(mapping[1]==0 && mapping[4]!=0)
       {
         uint16_t num = mapping[1] + mapping[4];
-        if(step11 == 0)
-        {
-          if(num  < 5 && num  > 2)
-          {
-            twoS180();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            twoS180up();
-            osDelay(1000);
-          }
-          else if(num  == 5)
-          {
-            twoS180down();
-            osDelay(1000);
-          }
-          else if(num  == 1)
-          {
-            twoS270();
-            osDelay(2000);
-          }
-          else if(num  == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+        if(step11 == 0){
+        if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
+          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S270;
+          else if(num == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step11 = 100;
         }
         if(step11 == 100)
@@ -1294,31 +1119,12 @@ void uppergoingtask(void const * argument)
         }
         if(step11 == 3) //现在是S180
         {
-          if(num < 5 && num > 2) 
-          {
-            oneS0();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            oneS0up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            oneS0down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            oneS90();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            oneS270();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
+          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S90;
+          else if(num == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step11 = 400 ;
         }
         if(step11 == 400)
@@ -1382,9 +1188,9 @@ void uppergoingtask(void const * argument)
           osDelay(200);
           mygantry.gantrypos.x = x_middle;
           osDelay(100);
-          mygantry.gantrypos.z = z_middle;
-          noneS0();
+          osDelay(500);
           step11 = 6;//[3]运动到位
+          mygantry.gantrypos.degree = S0;
           osDelay(20);
           jiaquzhuangtai = 4;
           
@@ -1396,31 +1202,12 @@ void uppergoingtask(void const * argument)
         uint16_t num = mapping[1] + mapping[4];
         if(step12 == 0)
         {
-          if(num > 2 && num < 5 )
-          {
-            twoS0();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            twoS0up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            twoS0down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            twoS90();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
+          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S90;
+          else if(num == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step12 = 100 ;
         }
         if(step12 == 100)
@@ -1480,31 +1267,24 @@ void uppergoingtask(void const * argument)
         }
         if(step12 == 2)
         {
-          if(num < 5 && num > 2)
+          mygantry.gantrypos.x = x_zhan;
+          mygantry.gantrypos.y = y_middle;
+          float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
+          float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
+          if(diff1 < 120 && diff2 < 80)
           {
-            oneS180();
-            osDelay(1000);
+            step12 = 300;
+            osDelay(50);
           }
-          else if(num == 2)
-          {
-            oneS180up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            oneS180down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            oneS270();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            oneS90();
-            osDelay(2000);
-          }
+        }
+        if(step12 == 300)
+        {
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
+          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S270;
+          else if(num == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step12 = 3;//[3]运动到位
         }
         if(step12 == 3)
@@ -1567,14 +1347,13 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle; 
           osDelay(200);
           mygantry.gantrypos.x = x_middle;
-          osDelay(100);
-          noneS0();
+          osDelay(800);
           step12 = 6;//[3]运动到位
+          mygantry.gantrypos.degree = S0;
           osDelay(200);
         } 
         if(step12 == 6)
         {
-          motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
           osDelay(50);
           jiaquzhuangtai = 4;
         } 
@@ -1679,7 +1458,7 @@ void uppergoingtask(void const * argument)
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 20)
         {
-          motor_controlmode(&mi_motor[0], 0, S180, 0, 1.8, 1.0);
+          mygantry.gantrypos.degree = S180;
           runflag = 10;
           osDelay(50);
         } 
@@ -1736,31 +1515,12 @@ void uppergoingtask(void const * argument)
       {
         if(step20 == 0)
         {
-          if(mapping[5] < 5 && mapping[5] > 2)
-          {
-            twoS180();
-            osDelay(1000);
-          }
-          else if(mapping[5] == 2)
-          {
-            twoS180up();
-            osDelay(1000);
-          }
-          else if(mapping[5] == 5)
-          {
-            twoS180down();
-            osDelay(1000);
-          }
-          else if(mapping[5] == 1)
-          {
-            twoS270();
-            osDelay(2000);
-          }
-          else if(mapping[5] == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+          if(mapping[5] < 5 && mapping[5] > 2)  mygantry.gantrypos.degree = S180;
+          else if(mapping[5] == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(mapping[5] == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(mapping[5] == 1) mygantry.gantrypos.degree = S270;
+          else if(mapping[5] == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step20 = 100;
         }
         if(step20 == 100)
@@ -1832,31 +1592,12 @@ void uppergoingtask(void const * argument)
         }
         if(step20 == 200)
         {
-          if(mapping[2] < 5 && mapping[2] > 2) 
-          {
-            oneS0();
-            osDelay(1000);
-          }
-          else if(mapping[2] == 2)
-          {
-            oneS0up();
-            osDelay(1000);
-          }
-          else if(mapping[2] == 5)
-          {
-            oneS0down();
-            osDelay(1000);
-          }
-          else if(mapping[2] == 1)
-          {
-            oneS90();
-            osDelay(2000);
-          }
-          else if(mapping[2] == 6)
-          {
-            oneS270();
-            osDelay(2000);
-          }
+          if(mapping[2] < 5 && mapping[2] > 2)  mygantry.gantrypos.degree = S0;
+          else if(mapping[2] == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(mapping[2] == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(mapping[2] == 1) mygantry.gantrypos.degree = S90;
+          else if(mapping[2] == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step20 = 3;
         }
         if(step20 == 3)
@@ -1932,31 +1673,12 @@ void uppergoingtask(void const * argument)
         uint16_t num = mapping[2] + mapping[5];
         if(step21 == 0)
         {
-          if(num  < 5 && num  > 2)
-          {
-            twoS180();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            twoS180up();
-            osDelay(1000);
-          }
-          else if(num  == 5)
-          {
-            twoS180down();
-            osDelay(1000);
-          }
-          else if(num  == 1)
-          {
-            twoS270();
-            osDelay(2000);
-          }
-          else if(num  == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
+          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S270;
+          else if(num == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step21 = 100;
         }
         if(step21 == 100)
@@ -2028,31 +1750,12 @@ void uppergoingtask(void const * argument)
         }
         if(step21 == 3) //现在是S180
         {
-          if(num < 5 && num > 2) 
-          {
-            oneS0();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            oneS0up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            oneS0down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            oneS90();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            oneS270();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
+          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S90;
+          else if(num == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step21 = 400 ;
         }
         if(step21 == 400)
@@ -2130,31 +1833,12 @@ void uppergoingtask(void const * argument)
         uint16_t num = mapping[2] + mapping[5];
         if(step22 == 0)
         {
-          if(num > 2 && num < 5 )
-          {
-            twoS0();
-            osDelay(200);
-          }
-          else if(num == 2)
-          {
-            twoS0up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            twoS0down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            twoS90();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            twoS90();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
+          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S90;
+          else if(num == 6) mygantry.gantrypos.degree = S270;
+          osDelay(1000);
           step22 = 100 ;
         }
         if(step22 == 100)
@@ -2226,31 +1910,12 @@ void uppergoingtask(void const * argument)
         }
         if(step22 == 300)
         {
-          if(num < 5 && num > 2)
-          {
-            oneS180();
-            osDelay(1000);
-          }
-          else if(num == 2)
-          {
-            oneS180up();
-            osDelay(1000);
-          }
-          else if(num == 5)
-          {
-            oneS180down();
-            osDelay(1000);
-          }
-          else if(num == 1)
-          {
-            oneS270();
-            osDelay(2000);
-          }
-          else if(num == 6)
-          {
-            oneS90();
-            osDelay(2000);
-          }
+          if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
+          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
+          else if(num == 1) mygantry.gantrypos.degree = S270;
+          else if(num == 6) mygantry.gantrypos.degree = S90;
+          osDelay(1000);
           step22 = 3;//[3]运动到位
         }
         if(step22 == 3)
