@@ -51,6 +51,7 @@ osThreadId defaultTaskHandle;
 osThreadId upperstartHandle;
 osThreadId upperservoHandle;
 osThreadId uppergoingHandle;
+osThreadId upeerMIHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -61,6 +62,7 @@ void StartDefaultTask(void const * argument);
 void upperstarttask(void const * argument);
 void upperservotask(void const * argument);
 void uppergoingtask(void const * argument);
+void upeeeMItask(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -122,6 +124,10 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of uppergoing */
   osThreadDef(uppergoing, uppergoingtask, osPriorityNormal, 0, 1024);
   uppergoingHandle = osThreadCreate(osThread(uppergoing), NULL);
+
+  /* definition and creation of upeerMI */
+  osThreadDef(upeerMI, upeeeMItask, osPriorityIdle, 0, 128);
+  upeerMIHandle = osThreadCreate(osThread(upeerMI), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -199,6 +205,24 @@ __weak void uppergoingtask(void const * argument)
     osDelay(1);
   }
   /* USER CODE END uppergoingtask */
+}
+
+/* USER CODE BEGIN Header_upeeeMItask */
+/**
+* @brief Function implementing the upeerMI thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_upeeeMItask */
+__weak void upeeeMItask(void const * argument)
+{
+  /* USER CODE BEGIN upeeeMItask */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END upeeeMItask */
 }
 
 /* Private application code --------------------------------------------------*/

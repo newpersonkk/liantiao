@@ -25,7 +25,6 @@ void upperservotask(void const * argument)
     STP_23L_Decode(Rxbuffer_1, &Lidar1);//激光是轴的
     STP_23L_Decode(Rxbuffer_2, &Lidar2);//激光是长轴的
     //计算
-    motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
 
     synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1, 1.0, 1.0, -1, 1);
     positionServo_lidar(mygantry.gantrypos.y ,mygantry.Motor_Y, Lidar2);//y轴宽

@@ -122,8 +122,6 @@ void uppergoingtask(void const * argument)
   //500=26.8 550=24.9 600=23  700=19.4 800=16  900=12.3 930=11.5 
 
   //
-
-
   float zhuazibhfang = 80 ;
   float zhuazibhopen = 83 ;
   float zhuazibhclose = 96 ;
@@ -135,13 +133,12 @@ void uppergoingtask(void const * argument)
   //230/240举起来  15取物   867取物  66放置1    397放置2
 
   float z_upeer_up = 1080;
-  float z_upeer_down = 890;
+  float z_upeer_down = 880;
   float z_down_up = 260;
   float z_down_down = 51;
   float z_zhiduo_fang = 170;
   float z_zhiduo_fang2 = 450;
   float z_middle = 850;
-  //大概14 = 1cm
 
   float x_qu = 196.0;
   float x_qu_ps = 600;
@@ -150,14 +147,13 @@ void uppergoingtask(void const * argument)
   float x_middle = 2000.0;
   float x_zhan = 2560.0;  
 
-
   float y_qu_1 = 200.0;
   float y_qu_2 = 705.0;
   float y_qu_3 = 1200.0;
   float y_middle = 750.0;
 
   float y_fang_1 = 1210.0;
-  float y_fang_2 = 1385.0;
+  float y_fang_2 = 1380.0;
   float y_fang_3 = 954.0;
   float y_fang_4 = 489.5;
   float y_fang_5 = 42.5;
@@ -167,10 +163,10 @@ void uppergoingtask(void const * argument)
   matchingnum(zhiduo, tx_buffer5);
   generate_mapping_array(xiangzi,zhiduo,mapping);
 
-  mapping[0] = 2;
-  mapping[1] = 3;
+  mapping[0] = 5;
+  mapping[1] = 2;
   mapping[2] = 4;
-  mapping[3] = 5;
+  mapping[3] = 2;
   mapping[4] = 4;
   mapping[5] = 0;
 
@@ -321,9 +317,9 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x  = x_middle;
         osDelay(200);
         mygantry.gantrypos.y  = y_middle;
-        osDelay(200);
+        osDelay(100);
         mygantry.gantrypos.z = z_middle;
-        osDelay(200);
+        osDelay(500);
         runflag = 15;
         jiaquzhuangtai = 1 ;
       }
@@ -338,17 +334,17 @@ void uppergoingtask(void const * argument)
           if(mapping[3] < 5 && mapping[3] > 2)
           {
             twoS180();
-            osDelay(500);
+            osDelay(1000);
           }
           else if(mapping[3] == 2)
           {
             twoS180up();
-            osDelay(500);
+            osDelay(1000);
           }
           else if(mapping[3] == 5)
           {
             twoS180down();
-            osDelay(500);
+            osDelay(1000);
           }
           else if(mapping[3] == 1)
           {
@@ -953,6 +949,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.z = z_upeer_down;
         osDelay(100);
         oneS180();
+        osDelay(200);
         float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff1 < 20 && diff2 < 6)
@@ -1723,6 +1720,7 @@ void uppergoingtask(void const * argument)
       if(runflag == 13)
       {
         mygantry.gantrypos.x  = x_middle;
+        osDelay(200);
         mygantry.gantrypos.y  = y_middle;
         osDelay(300);
         mygantry.gantrypos.z  = z_middle;
@@ -1923,7 +1921,6 @@ void uppergoingtask(void const * argument)
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
           if(diff1 < 4 && diff2 < 4)
           {
-            motor_controlmode(&mi_motor[0], 0, S0, 0, 1.0, 0.5);
             osDelay(200);
             step20 = 6;//[3]运动到位
           }
