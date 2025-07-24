@@ -1,9 +1,11 @@
 /*过滤器配置，can的fifo0接收*/
 
 #include "wtr_can.h"
-#include "motor.h"
+#include "mi_motor.h"
+#include "param.h"
 uint8_t CanReceiveData[8];
 
+uint16_t flag = 0;
 
 HAL_StatusTypeDef CANFilterInit(CAN_HandleTypeDef* hcan){
   CAN_FilterTypeDef  sFilterConfig;
@@ -16,9 +18,21 @@ HAL_StatusTypeDef CANFilterInit(CAN_HandleTypeDef* hcan){
   sFilterConfig.FilterMaskIdLow = 0x0000;
   sFilterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
   sFilterConfig.FilterActivation = ENABLE;
+  	if(hcan->Instance == CAN1) 
+	{
+		__HAL_RCC_CAN1_CLK_ENABLE();
+   sFilterConfig.FilterBank = 0;
+  sFilterConfig.SlaveStartFilterBank = 0;
+  } 
+	else if(hcan->Instance == CAN2)
+	{
+    __HAL_RCC_CAN1_CLK_ENABLE();
+    __HAL_RCC_CAN2_CLK_ENABLE();
+  sFilterConfig.FilterBank = 14;
   sFilterConfig.SlaveStartFilterBank = 14;
-  
+  }
 	
+
   if(HAL_CAN_ConfigFilter(hcan, &sFilterConfig) != HAL_OK)
   {
     Error_Handler();

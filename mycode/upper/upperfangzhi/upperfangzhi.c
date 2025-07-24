@@ -5,7 +5,6 @@
 #include "DJI.h"
 #include "decode.h"
 #include "wtr_can.h"
-#include "motor.h"
 
 
 void upeeeMItask(void const * argument)
@@ -15,8 +14,7 @@ void upeeeMItask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
-    osDelay(5);
+    osDelay(1);
   }
   /* USER CODE END upeeeMItask */
 }

@@ -15,7 +15,7 @@
   **/
 #include "main.h"
 #include "can.h"
-#include "motor.h"
+#include "mi_motor.h"
 
 CAN_RxHeaderTypeDef rxMsg;//发送接收结构体
 CAN_TxHeaderTypeDef txMsg;//发送配置结构体
@@ -132,6 +132,13 @@ void Motor_Data_Handler(MI_Motor *Motor,uint8_t DataFrame[8],uint32_t IDFrame)
 		Motor->Torque=uint16_to_float(DataFrame[4]<<8|DataFrame[5],T_MIN,T_MAX,16);				
 		Motor->Temp=(DataFrame[6]<<8|DataFrame[7])*Temp_Gain;
 		Motor->error_code=(IDFrame&0x1F0000)>>16;	
+    // if (!Motor->PowerOnFlag) {
+    //     Motor->PowerOnPosition = Motor->Angle; // 记录应用偏移前的位置
+    //     Motor->PowerOnFlag = 1;
+        
+    //     // 立即设置目标位置为上电位置
+    //     motor_controlmode(Motor, 0, Motor->PowerOnPosition, 0, 50, 1);
+    // }
 }
 
 /**
@@ -239,6 +246,8 @@ void init_cybergear(MI_Motor *Motor,uint8_t Can_Id, uint8_t mode)
 	Motor->CAN_ID=Can_Id;       //ID设置 
 	set_mode_cybergear(Motor,mode);//设置电机模式
 	start_cybergear(Motor);        //使能电机
+  Motor->PowerOnFlag = 0;
+    Motor->PowerOnPosition = 0.0f;
 }
 
 /**
@@ -268,20 +277,29 @@ void motor_controlmode(MI_Motor *Motor,float torque, float MechPosition, float s
     can_txd();
 }
 
+void return_to_poweron_position(MI_Motor *Motor)
+{
+    if (Motor->PowerOnFlag) {
+        // 使用运控模式指令回到上电位置
+        motor_controlmode(Motor, 0, Motor->PowerOnPosition, 0, 50, 1);
+    }
+}
+
+// 执行永久零点校准
+
+
 /*****************************回调函数 负责接回传信息 可转移至别处*****************************/
 /**
   * @brief          hal库CAN回调函数,接收电机数据
   * @param[in]      hcan:CAN句柄指针
   * @retval         none
   */
-
-
-/*
+ /*
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
 //    HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);              //LED闪烁指示
     HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &rxMsg, rx_data);//接收数据
-	  Motor_Can_ID=Get_Motor_ID(rxMsg.ExtId);//首先获取回传电机ID信息  
+	Motor_Can_ID=Get_Motor_ID(rxMsg.ExtId);//首先获取回传电机ID信息  
     switch(Motor_Can_ID)                   //将对应ID电机信息提取至对应结构体
     {
         case 0X7F:  
@@ -293,5 +311,4 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         default:
             break;		
     }
-}
-*/
+}*/

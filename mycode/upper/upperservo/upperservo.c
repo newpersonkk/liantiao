@@ -5,10 +5,12 @@
 #include "decode.h"
 #include "cmsis_os.h"
 #include "wtr_can.h"
-#include "motor.h"
+#include "mi_motor.h"
+#include "math.h"
+
 
 gantrystate mygantry; 
-float littlenum = 0.1;
+float littlenum = 0.25;
 
 void upperservotask(void const * argument)
 {
@@ -25,8 +27,10 @@ void upperservotask(void const * argument)
     STP_23L_Decode(Rxbuffer_1, &Lidar1);//激光是轴的
     STP_23L_Decode(Rxbuffer_2, &Lidar2);//激光是长轴的
     //计算
-    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < littlenum) motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 1, 1.5);
-    else motor_controlmode(&mi_motor[0], 1, 0, 0, 10, 20);
+    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > littlenum)
+     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
+    else
+     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 40, 50);
 
     synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1, 1.0, 1.0, -1, 1);
     positionServo_lidar(mygantry.gantrypos.y ,mygantry.Motor_Y, Lidar2);//y轴宽
@@ -45,7 +49,6 @@ void upperservotask(void const * argument)
                              0);
     
     osDelay(1);
-
   }
   /* USER CODE END upperservotask */
 }
@@ -99,6 +102,7 @@ void gantry_Motor_init()               //电机初始化
     mygantry.Motor_Z->posPID.outputMax = 50000;
     //mygantry.Motor_S->speedPID.outputMax = 8000;
 
+    CANFilterInit(&hcan1);
     CAN_FilterTypeDef can_filter_st;
     can_filter_st.FilterActivation = ENABLE;
     can_filter_st.FilterMode = CAN_FILTERMODE_IDMASK;
@@ -107,7 +111,7 @@ void gantry_Motor_init()               //电机初始化
     can_filter_st.FilterIdLow = 0x0000;
     can_filter_st.FilterMaskIdHigh = 0x0000;
     can_filter_st.FilterMaskIdLow = 0x0000;
-    can_filter_st.FilterBank = 0;
+    can_filter_st.FilterBank = 14;
     can_filter_st.FilterFIFOAssignment = CAN_RX_FIFO0;
     can_filter_st.SlaveStartFilterBank = 14;
     HAL_CAN_ConfigFilter(&hcan2, &can_filter_st);
@@ -122,7 +126,6 @@ void gantry_Motor_init()               //电机初始化
     osDelay(100);
     motor_controlmode(&mi_motor[0], 0, 0, 0, 1, 0.5);
 
-    CANFilterInit(&hcan1);
 
     //小米电机 过滤器设置 hcan2
 

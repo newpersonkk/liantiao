@@ -118,7 +118,7 @@ void MX_FREERTOS_Init(void) {
   upperstartHandle = osThreadCreate(osThread(upperstart), NULL);
 
   /* definition and creation of upperservo */
-  osThreadDef(upperservo, upperservotask, osPriorityNormal, 0, 1024);
+  osThreadDef(upperservo, upperservotask, osPriorityAboveNormal, 0, 1024);
   upperservoHandle = osThreadCreate(osThread(upperservo), NULL);
 
   /* definition and creation of uppergoing */

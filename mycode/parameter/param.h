@@ -57,4 +57,5 @@ extern float S270;
 extern float errorth;
 
 extern float littlenum;
+extern uint16_t flag ;
 #endif // !__PARAM_H__PARAM_H__

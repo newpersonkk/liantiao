@@ -65,6 +65,13 @@
 #define Motor_Error 0x00
 #define Motor_OK 0X01
 
+extern CAN_RxHeaderTypeDef rxMsg;//发送接收结构体
+extern CAN_TxHeaderTypeDef txMsg;//发送配置结构体
+extern uint8_t rx_data[8];       //接收数据
+extern uint32_t Motor_Can_ID;    //接收数据电机ID
+extern uint8_t byte[4];          //转换临时数据
+extern uint32_t send_mail_box;//NONE
+
 enum CONTROL_MODE   //控制模式定义
 {
     Motion_mode = 0,//运控模式  
@@ -98,15 +105,13 @@ typedef struct{           //小米电机结构体
 	uint8_t error_code;
 	
 	float Angle_Bias;
+    float PowerOnPosition;  // 上电时的位置（应用偏移前）
+    uint8_t PowerOnFlag;    // 上电位置已记录标志
 	
 }MI_Motor;
 extern MI_Motor mi_motor[4];//预先定义四个小米电机
 
-extern CAN_RxHeaderTypeDef rxMsg;//发送接收结构体
-extern CAN_TxHeaderTypeDef txMsg;//发送配置结构体
-extern uint8_t rx_data[8];       //接收数据
-extern uint32_t Motor_Can_ID;    //接收数据电机ID
-extern uint8_t byte[4];          //转换临时数据
+
 
 extern void chack_cybergear(uint8_t ID);
 extern void start_cybergear(MI_Motor *Motor);
@@ -118,28 +123,5 @@ extern void set_CANID_cybergear(MI_Motor *Motor, uint8_t CAN_ID);
 extern void init_cybergear(MI_Motor *Motor, uint8_t Can_Id, uint8_t mode);
 extern void motor_controlmode(MI_Motor *Motor,float torque, float MechPosition, float speed, float kp, float kd);
 
-void noneS0();
-void noneS90();
-void noneS180();
-void noneS270();
-
-void oneS0();
-void oneS90();
-void oneS180();
-void oneS270();
-
-void twoS0();
-void twoS90();
-void twoS180();
-void twoS270();
-
-void oneS180up();
-void oneS180down();
-void twoS180up();
-void twoS180down();
-
-void oneS0up();
-void oneS0down();
-void twoS0up();
-void twoS0down();
-
+uint32_t Get_Motor_ID(uint32_t CAN_ID_Frame);
+void Motor_Data_Handler(MI_Motor *Motor,uint8_t DataFrame[8],uint32_t IDFrame);

@@ -5,6 +5,7 @@
 #include "param.h"
 #include "cmsis_os.h"
 #include "tim.h"
+#include "mi_motor.h"
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
@@ -25,15 +26,15 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    printf("%f,%f,%f,%f,%f,%f,%f,%f\r\n",
+    printf("%f,%f,%f,%d,%f,%f,%f,%f\r\n",
                Lidar1.distance_aver,
                Lidar2.distance_aver,
                hDJI[4].AxisData.AxisAngle_inDegree,
-               hDJI[5].AxisData.AxisAngle_inDegree,
-               jiaquzhuangtai,
+               flag,
                mygantry.gantrypos.x,
                mygantry.gantrypos.y,
-               mygantry.gantrypos.z
+               mygantry.gantrypos.z,
+               mi_motor[0].Angle
                );
              /*printf("%f,%d,%f,%d\r\n",
                hDJI[5].AxisData.AxisAngle_inDegree,
