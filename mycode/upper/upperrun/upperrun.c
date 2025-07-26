@@ -1684,7 +1684,7 @@ void uppergoingtask(void const * argument)
         }
         if(step20 == 5)
         {
-          mygantry.gantrypos.x = x_middle-500;
+          mygantry.gantrypos.x = x_middle-900;
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1845,7 +1845,7 @@ void uppergoingtask(void const * argument)
         }
         if(step21 == 5)
         {
-          mygantry.gantrypos.x = x_middle-500;
+          mygantry.gantrypos.x = x_middle-900;
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -2007,7 +2007,7 @@ void uppergoingtask(void const * argument)
         }
         if(step22 == 5)
         {
-          mygantry.gantrypos.x = x_middle-500;
+          mygantry.gantrypos.x = x_middle-900;
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
