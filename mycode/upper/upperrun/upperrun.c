@@ -36,7 +36,7 @@ float S90 = 3.1415926/2.0f ;//彩色向1纸垛 黑白向6纸垛
 float S180 = 3.1415926 ;//彩色向货箱 黑白向2345
 float S270 = 3.1415926*3.0/2.0f ;//黑白向1纸垛 彩色向6纸垛
 
-float errorth = 3.1415926/180.0*1.5;
+float errorth = 3.1415926/180.0*1.0;
 
 void generate_mapping_array(int16_t arr1[], int16_t arr2[], int16_t output[]) {
     // 存储每个数字在两个数组中的索引
@@ -122,12 +122,12 @@ void uppergoingtask(void const * argument)
   //500=26.8 550=24.9 600=23  700=19.4 800=16  900=12.3 930=11.5 
 
   //
-  float zhuazibhfang = 78 ;
-  float zhuazibhopen = 83 ;
+  float zhuazibhfang = 75 ;
+  float zhuazibhopen = 80 ;
   float zhuazibhclose = 96 ;
 
-  float zhuazicaifang = 82 ;
-  float zhuazicaiopen = 93 ;
+  float zhuazicaifang = 80 ;
+  float zhuazicaiopen = 84 ;
   float zhuazicaiclose = 101 ; 
   
   //230/240举起来  15取物   867取物  66放置1    397放置2
@@ -135,15 +135,15 @@ void uppergoingtask(void const * argument)
   float z_upeer_up = 1080;
   float z_upeer_down = 854;
   float z_down_up = 260;
-  float z_down_down = 40;
+  float z_down_down = 20;
   float z_zhiduo_fang = 180.6;
   float z_zhiduo_fang2 = 450;
   float z_middle = 850;
 
   float x_qu = 186.0;
   float x_qu_ps = 600;
-  float x_fang_4 = 3025.0;//3060  3040
-  float x_fang_2 = 2790.0;
+  float x_fang_4 = 3030.0;//3060  3040
+  float x_fang_2 = 2810.0;
   float x_middle = 2000.0;
   float x_zhan = 2560.0;  
 
@@ -154,22 +154,30 @@ void uppergoingtask(void const * argument)
 
   float y_fang_1 = 1210.0;
   float y_fang_2 = 1380.0;
-  float y_fang_3 = 954.0;
+  float y_fang_3 = 934.0;
   float y_fang_4 = 482.5;
   float y_fang_5 = 42.5;
   float y_fang_6 = 223.0;
 
-  matchingnum(mapping, tx_buffer4);
-  matchingnum(zhiduo, tx_buffer5);
+  //matchingnum(xiangzi, tx_buffer4);
+  //matchingnum(zhiduo, tx_buffer5);
+
+  xiangzi[0] = 5;
+  xiangzi[1] = 1;
+  xiangzi[2] = 6;
+  xiangzi[3] = 3;
+  xiangzi[4] = 2;
+  xiangzi[5] = 4;
+  
+  zhiduo[0] = 1;
+  zhiduo[1] = 3;
+  zhiduo[2] = 5;
+  zhiduo[3] = 2;
+  zhiduo[4] = 6;
+  zhiduo[5] = 0;
 
   generate_mapping_array(xiangzi,zhiduo,mapping);
 
-  mapping[0] = 2;
-  mapping[1] = 3;
-  mapping[2] = 4;
-  mapping[3] = 5;
-  mapping[4] = 0;
-  mapping[5] = 1;
   osDelay(100);
   osDelay(1350);
 
@@ -584,7 +592,7 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
             osDelay(200);
             MIkp = 10.0;
-            mygantry.gantrypos.z = z_middle;
+            mygantry.gantrypos.z = z_middle+100;
             osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
@@ -734,7 +742,7 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhfang);
             osDelay(200);
             mygantry.gantrypos.z = z_middle;
-            osDelay(200);
+            osDelay(300);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             MIkp = 10.0;
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
@@ -839,7 +847,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.y = y_middle;
         mygantry.gantrypos.z = z_upeer_down;
-        osDelay(100);
+        osDelay(500);
         mygantry.gantrypos.degree = S180;
         osDelay(500);
         float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
@@ -852,7 +860,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 9)
       {
-        mygantry.gantrypos.y = y_qu_2;
+        mygantry.gantrypos.y = y_qu_2 + 5.0;
         mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 40)
@@ -863,7 +871,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 10)
       {
-        mygantry.gantrypos.x = x_qu+1;
+        mygantry.gantrypos.x = x_qu;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         if(diff < 4)
         {
@@ -873,7 +881,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 11)
       {
-        mygantry.gantrypos.z = z_upeer_down;
+        mygantry.gantrypos.z = z_upeer_down - 20;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff < 4)
         {
@@ -1188,7 +1196,8 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
             osDelay(200);
             MIkp = 10.0;
-            mygantry.gantrypos.z = z_middle+100;
+            mygantry.gantrypos.z = z_middle;
+            osDelay(200);
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
             osDelay(100);
@@ -1200,7 +1209,6 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           osDelay(200);
           mygantry.gantrypos.x = x_middle;
-          osDelay(100);
           osDelay(500);
           step11 = 6;//[3]运动到位
           mygantry.gantrypos.degree = S0;
@@ -1348,8 +1356,8 @@ void uppergoingtask(void const * argument)
           {
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
             osDelay(200);
-            mygantry.gantrypos.z = z_middle+100;
-            osDelay(200);
+            mygantry.gantrypos.z = z_middle;
+            osDelay(300);
             MIkp = 10.0;
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
@@ -1470,7 +1478,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 9)
       {
-        mygantry.gantrypos.y = y_qu_3;
+        mygantry.gantrypos.y = y_qu_3 + 2.0;
         mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 20)
@@ -1482,7 +1490,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 10)
       {
-        mygantry.gantrypos.x = x_qu + 8.0;
+        mygantry.gantrypos.x = x_qu + 26.0;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         if(diff < 4)
         {
@@ -1492,7 +1500,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 11)
       {
-        mygantry.gantrypos.z = z_upeer_down;
+        mygantry.gantrypos.z = z_upeer_down - 20;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff < 4)
         {
@@ -1827,7 +1835,7 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiopen);
             osDelay(200);
             mygantry.gantrypos.z = z_middle+100;
-            osDelay(200);
+            osDelay(300);
             MIkp = 10.0;
             __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
@@ -1989,7 +1997,7 @@ void uppergoingtask(void const * argument)
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhopen);
             osDelay(200);
             mygantry.gantrypos.z = z_middle+100;
-            osDelay(200);
+            osDelay(300);
             MIkp = 10.0;
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.0, 0.0, 0);
