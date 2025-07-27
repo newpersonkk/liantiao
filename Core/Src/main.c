@@ -26,7 +26,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "param.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,7 +101,6 @@ int main(void)
   MX_UART5_Init();
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
-  
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

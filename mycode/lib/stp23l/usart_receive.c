@@ -3,10 +3,15 @@
 #include "stm32f4xx_it.h"
 #include "decode.h"
 #include "string.h"
-
+#include "param.h"
 
 static uint16_t u4state = 0;
 static uint16_t u5state = 0;
+
+uint16_t flag = 0;
+
+uint16_t rx_complete1 = 0;
+uint16_t rx_complete2 = 0;
 
 uint8_t uart4_rx[1];
 uint8_t uart5_rx[1];
@@ -90,11 +95,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
     if (huart->Instance == UART4)
     {
-        rx_buffer4[u4state] = uart4_rx[1]; // 存入缓冲区
+        rx_buffer4[u4state] = uart4_rx[0]; // 存入缓冲区
         u4state++;
+        flag = 1 ;
         if (u4state >= 6)
         {
             memcpy(tx_buffer4, rx_buffer4, 6);// 复制到目标缓冲区rx_complete=1; // 设置完成标志
+            rx_complete1 = 1 ;
         }
         else 
         {
@@ -103,11 +110,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
     if (huart->Instance == UART5)
     {
-        rx_buffer5[u5state] = uart5_rx[1]; // 存入缓冲区
+        rx_buffer5[u5state] = uart5_rx[0]; // 存入缓冲区
         u5state++;
         if (u5state >= 6)
         {
             memcpy(tx_buffer5, rx_buffer5, 6);// 复制到目标缓冲区rx_complete=1; // 设置完成标志
+            rx_complete2 = 1 ;
         }
         else 
         {

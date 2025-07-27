@@ -22,6 +22,7 @@ typedef struct
 }
 gantrystate;
 
+extern uint16_t flag;
 
 extern int16_t xiangzi[6]; 
 extern int16_t zhiduo[6];  
@@ -55,6 +56,11 @@ extern float S180;
 extern float S270;
 
 extern float errorth;
+
+extern int16_t mapping[6];
+
+extern uint16_t rx_complete1 ;
+extern uint16_t rx_complete2 ;
 
 extern float littlenum;
 extern uint16_t flag ;

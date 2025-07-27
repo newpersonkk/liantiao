@@ -14,18 +14,18 @@ void StartDefaultTask(void const * argument)
   HAL_UART_Receive_IT(&huart1, usart1_rx, 1);
   HAL_UART_Receive_IT(&huart2, usart2_rx, 1);
 
+  RetargetInit(&huart3);
   HAL_UART_Receive_IT(&huart4, uart4_rx, 1);
   HAL_UART_Receive_IT(&huart5, uart5_rx, 1);
-
-
-  osDelay(1000);
+  osDelay(1500);
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim4,TIM_CHANNEL_1);
-  RetargetInit(&huart3);
+  
   
   /* Infinite loop */
   for(;;)
   {
+    
     printf("%f,%f,%f,%d,%f,%f,%f,%f\r\n",
                Lidar1.distance_aver,
                Lidar2.distance_aver,
@@ -36,13 +36,21 @@ void StartDefaultTask(void const * argument)
                mygantry.gantrypos.z,
                mi_motor[0].Angle
                );
-             /*printf("%f,%d,%f,%d\r\n",
+             /*
+             printf("%f,%d,%f,%d\r\n",
                hDJI[5].AxisData.AxisAngle_inDegree,
                jiaquzhuangtai,
                mygantry.Motor_S->speedPID.output,
                Lidar1.distance_aver
-               );  */
-    osDelay(1);
+               );  
+
+               
+        printf("%d,%d",rx_complete1,rx_complete2);
+        for (int i = 0; i < 6; i++) {
+        printf("%d ", mapping[i]);
+        */
+    
+    osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
 }

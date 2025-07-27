@@ -9,7 +9,6 @@
 
 void upeeeMItask(void const * argument)
 {
-    osDelay(2000);
   /* USER CODE BEGIN upeeeMItask */
   /* Infinite loop */
   for(;;)

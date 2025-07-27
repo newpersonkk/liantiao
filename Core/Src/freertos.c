@@ -25,7 +25,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "param.h"
+#include "retarget.h"
+#include "upperrun.h"
+#include "usart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,7 +92,9 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-  osDelay(3000);
+  osDelay(1000);
+
+  osDelay(2000);
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */

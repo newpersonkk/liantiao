@@ -5,7 +5,6 @@
 #include "param.h"
 uint8_t CanReceiveData[8];
 
-uint16_t flag = 0;
 
 HAL_StatusTypeDef CANFilterInit(CAN_HandleTypeDef* hcan){
   CAN_FilterTypeDef  sFilterConfig;
