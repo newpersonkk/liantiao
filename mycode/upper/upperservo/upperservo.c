@@ -16,9 +16,9 @@ float largenum = 0.174;
 void upperservotask(void const * argument)
 {
   /* USER CODE BEGIN upperservotask */
-  mygantry.gantrypos.x = 1850.0;
+  mygantry.gantrypos.x = 2000.0;
   mygantry.gantrypos.y = 720.0;
-  Lidar1.distance_aver = 1855.0;
+  Lidar1.distance_aver = 2000.0;
   Lidar2.distance_aver = 720;
   osDelay(1800);
   /* Infinite loop */
@@ -37,7 +37,7 @@ void upperservotask(void const * argument)
 
     synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1, 1.0, 1.0, -1, 1);
     positionServo_lidar(mygantry.gantrypos.y ,mygantry.Motor_Y, Lidar2);//y轴宽
-
+    //Set_Motor_Parameter(&mi_motor[0],0x2013,0.05,'f');
     positionServo(mygantry.gantrypos.z, mygantry.Motor_Z);
   
     CanTransmit_DJI_1234(&hcan1,
@@ -125,6 +125,9 @@ void gantry_Motor_init()               //电机初始化
     osDelay(100);
     init_cybergear(&mi_motor[0], 0x7F, Motion_mode);
     set_zeropos_cybergear(&mi_motor[0]);
+
+    Set_Motor_Parameter(&mi_motor[0],0x2013,0.05,'f');
+    
     motor_controlmode(&mi_motor[0], 0, 0, 0, 4.0, 2.0);
     osDelay(100);
     motor_controlmode(&mi_motor[0], 0, 0, 0, 4.0, 2.0);

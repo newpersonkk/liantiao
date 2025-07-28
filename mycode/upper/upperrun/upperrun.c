@@ -132,19 +132,20 @@ void uppergoingtask(void const * argument)
   
   //230/240举起来  15取物   867取物  66放置1    397放置2
 
-  float z_upeer_up = 1080;
-  float z_upeer_down = 854;
-  float z_down_up = 260;
-  float z_down_down = 20;
-  float z_zhiduo_fang = 175.6;
+  float z_upeer_up = 1020;
+  float z_upeer_down = 870;
+  float z_down_up = 240;
+  float z_down_down = 10;
+  float z_zhiduo_fang = 184.0;
   float z_zhiduo_fang2 = 450;
   float z_middle = 850;
 
-  float x_qu = 190.0;
+  float x_qu = 194.0;
   float x_qu_ps = 600;
-  float x_fang_4 = 3040.0;//3060  3040
-  float x_fang_2 = 2810.0;
-  float x_middle = 1500.0;
+  float x_fang_4 = 3052.0;//3060  3040
+  float x_fang_4_2 = 3052.0;
+  float x_fang_2 = 2830.0;
+  float x_middle = 2000.0;
   float x_zhan = 2560.0;  
 
   float y_qu_1 = 200.0;
@@ -152,31 +153,30 @@ void uppergoingtask(void const * argument)
   float y_qu_3 = 1205.0;
   float y_middle = 750.0;
 
-  float y_fang_1 = 1210.0;
-  float y_fang_2 = 1380.0;
+  float y_fang_1 = 1200.0;
+  float y_fang_2 = 1385.0;
   float y_fang_3 = 934.0;
   float y_fang_4 = 482.5;
   float y_fang_5 = 42.5;
-  float y_fang_6 = 223.0;
+  float y_fang_6 = 219.0;
 
 
 
   
-  xiangzi[0] = 5;
-  xiangzi[1] = 6;
-  xiangzi[2] = 3;
-  xiangzi[3] = 2;
-  xiangzi[4] = 1;
-  xiangzi[5] = 4;
+  xiangzi[0] = 3;
+  xiangzi[1] = 4;
+  xiangzi[2] = 2;
+  xiangzi[3] = 5;
+  xiangzi[4] = 6;
+  xiangzi[5] = 1;
   
   zhiduo[0] = 2;
-  zhiduo[1] = 3;
-  zhiduo[2] = 6;
-  zhiduo[3] = 4;
-  zhiduo[4] = 0;
+  zhiduo[1] = 6;
+  zhiduo[2] = 4;
+  zhiduo[3] = 0;
+  zhiduo[4] = 3;
   zhiduo[5] = 5;
   
-
   osDelay(600);
   osDelay(1350);
   //matchingnum(xiangzi, tx_buffer4);
@@ -190,11 +190,11 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.z = z_down_up;
         mygantry.gantrypos.degree = S0 ;
-        osDelay(500);
+        osDelay(10);
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff < 4)
         {
-          osDelay(50);
+          osDelay(200);
           runflag = 1;
         }
       }
@@ -222,7 +222,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x = x_qu;
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        if(diff1 < 10 && diff2 < 4)
+        if(diff1 < 15 && diff2 < 4)
         {
           runflag = 4;
           osDelay(10);
@@ -232,7 +232,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.z = z_down_down;//取下面
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 1)
+        if(diff < 4)
         {
           __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);//
           MIkp = 4.0;
@@ -295,7 +295,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.x = x_qu;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff < 10)
+        if(diff < 15)
         {
           runflag = 11;
           osDelay(10);
@@ -305,7 +305,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.z = z_upeer_down;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 4)
+        if(diff < 10)
         {
           runflag = 12;
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
@@ -348,30 +348,37 @@ void uppergoingtask(void const * argument)
           else if(mapping[3] == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(mapping[3] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[3] == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step00 = 100;
         }
         if(step00 == 100)
         {
-          if(mapping[3] < 6 && mapping[3] > 1)//不需要转动直接进行放置再回到中点
+          if(mapping[3] < 5 && mapping[3] > 2)//不需要转动直接进行放置再回到中点
           {
-            if(mapping[3] == 2) mygantry.gantrypos.y = y_fang_2;
             if(mapping[3] == 3) mygantry.gantrypos.y = y_fang_3;
             if(mapping[3] == 4) mygantry.gantrypos.y = y_fang_4;
-            if(mapping[3] == 5) mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(mapping[3] == 2)
+          {
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }else if(mapping[3] == 5)
+          {
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(mapping[3] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(mapping[3] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -416,18 +423,25 @@ void uppergoingtask(void const * argument)
           else if(mapping[0] == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(mapping[0] == 1) mygantry.gantrypos.degree = S90;
           else if(mapping[0] == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1500);
+          osDelay(2000);
           step00 = 3;
         }
         if(step00 == 3)
         {
-          if(mapping[0] < 6 && mapping[0] > 1)//不需要转动直接进行放置再回到中点
+          if(mapping[0] < 5 && mapping[0] > 2)//不需要转动直接进行放置再回到中点
           {
-            if(mapping[0] == 2) mygantry.gantrypos.y = y_fang_2;
             if(mapping[0] == 3) mygantry.gantrypos.y = y_fang_3;
             if(mapping[0] == 4) mygantry.gantrypos.y = y_fang_4;
-            if(mapping[0] == 5) mygantry.gantrypos.y = y_fang_5;
             mygantry.gantrypos.x = x_fang_4;
+          }
+          else if(mapping[0] == 2)
+          {
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }else if(mapping[0] == 5)
+          {
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(mapping[0] == 1)
           {
@@ -485,30 +499,38 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step01 = 100;
         }
         if(step01 == 100)
         {
-          if(num > 1 && num < 6 )//
+          if(num > 2 && num < 5 )//
           {
-            if(num == 2) mygantry.gantrypos.y = y_fang_2;
             if(num == 3) mygantry.gantrypos.y = y_fang_3;
             if(num == 4) mygantry.gantrypos.y = y_fang_4;
-            if(num == 5) mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(num == 2)
+          { 
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           { 
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -558,13 +580,21 @@ void uppergoingtask(void const * argument)
         }
         if(step01 == 400)
         {
-          if(num > 1 && num < 6 )//
+          if(num > 2 && num < 5 )//
           {
-            if(num == 2) mygantry.gantrypos.y = y_fang_2;
             if(num == 3) mygantry.gantrypos.y = y_fang_3;
             if(num == 4) mygantry.gantrypos.y = y_fang_4;
-            if(num == 5) mygantry.gantrypos.y = y_fang_5;
             mygantry.gantrypos.x = x_fang_4;
+          }
+          else if(num == 2)
+          { 
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           { 
@@ -625,30 +655,37 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1500);
+          osDelay(2000);
           step02 = 100 ;
         }
         if(step02 == 100)
         {
-          if(num > 1 && num < 6 )//
+          if(num > 2 && num < 5 )//
           {
-            if(num == 2) mygantry.gantrypos.y = y_fang_2;
             if(num == 3) mygantry.gantrypos.y = y_fang_3;
             if(num == 4) mygantry.gantrypos.y = y_fang_4;
-            if(num == 5) mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(num == 2)
+          { 
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }else if(num == 5)
+          { 
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           { 
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -693,29 +730,26 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step02 = 3;
         }
         if(step02 == 3)
         {
-          if(num < 6 && num > 1)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
-            switch(num){
-            case 2:
-            mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
-            mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
-            osDelay(100);
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
             mygantry.gantrypos.x = x_fang_4;
+          }
+          else if(num == 2)
+          { 
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
@@ -776,7 +810,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.z = z_down_up;
         mygantry.gantrypos.degree = S0;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 4)
+        if(diff < 10)
         {
           osDelay(50);
           runflag = 1;
@@ -795,7 +829,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.z = z_down_up;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 4)
+        if(diff < 10)
         {
           runflag = 3;
           osDelay(50);
@@ -804,10 +838,11 @@ void uppergoingtask(void const * argument)
       if(runflag == 3)
       {
         mygantry.gantrypos.y = y_qu_2;
+        osDelay(500);
         mygantry.gantrypos.x = x_qu;
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        if(diff1 < 10 && diff2 < 4)
+        if(diff1 < 15 && diff2 < 4)
         {
           runflag = 4;
           osDelay(10);
@@ -863,7 +898,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 9)
       {
-        mygantry.gantrypos.y = y_qu_2 + 5.0;
+        mygantry.gantrypos.y = y_qu_2 + 8.0;
         mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 40)
@@ -876,7 +911,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.x = x_qu;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff < 12)
+        if(diff < 15)
         {
           runflag = 11;
           osDelay(10);
@@ -886,7 +921,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.z = z_upeer_down - 20;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 4)
+        if(diff < 10)
         {
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
           MIkp = 4.0;
@@ -927,31 +962,37 @@ void uppergoingtask(void const * argument)
           else if(mapping[4] == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(mapping[4] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[4] == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step10 = 100;
         }
         if(step10 == 100)
         {
-          if(mapping[4] < 6 && mapping[4] > 1)//不需要转动直接进行放置再回到中点
+          if(mapping[4] < 5 && mapping[4] > 2)//不需要转动直接进行放置再回到中点
           {
-            if(mapping[4] == 2) mygantry.gantrypos.y = y_fang_2;
             if(mapping[4] == 3) mygantry.gantrypos.y = y_fang_3;
             if(mapping[4] == 4) mygantry.gantrypos.y = y_fang_4;
-            if(mapping[4] == 5) mygantry.gantrypos.y = y_fang_5;
-            osDelay(100);
-            mygantry.gantrypos.x = x_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(mapping[4] == 2)
+          {
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }else if(mapping[4] == 5)
+          {
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(mapping[4] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(mapping[4] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1002,13 +1043,20 @@ void uppergoingtask(void const * argument)
         }
         if(step10 == 3)
         {
-          if(mapping[1] < 6 && mapping[1] > 1)//不需要转动直接进行放置再回到中点
+          if(mapping[1] < 5 && mapping[1] > 2)//不需要转动直接进行放置再回到中点
           {
-            mygantry.gantrypos.x = x_fang_4;
-            if(mapping[1] == 2) mygantry.gantrypos.y = y_fang_2;
             if(mapping[1] == 3) mygantry.gantrypos.y = y_fang_3;
             if(mapping[1] == 4) mygantry.gantrypos.y = y_fang_4;
-            if(mapping[1] == 5) mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4;
+          }
+          else if(mapping[1] == 2)
+          {
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }else if(mapping[1] == 5)
+          {
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(mapping[1] == 1)
           {
@@ -1069,40 +1117,38 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step11 = 100;
         }
         if(step11 == 100)
         {
-          if(num > 1 && num < 6)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
-            mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
-              mygantry.gantrypos.y = y_fang_2;
-              break;
-            case 3:
-              mygantry.gantrypos.y = y_fang_3;
-              break;
-            case 4:
-              mygantry.gantrypos.y = y_fang_4;
-              break;
-            case 5:
-              mygantry.gantrypos.y = y_fang_5;
-              break;
-            }
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(num == 2)
+          { 
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1147,28 +1193,26 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1500);
+          osDelay(2000);
           step11 = 400 ;
         }
         if(step11 == 400)
         {
-          if(num < 6 && num > 1)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
             mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
-              mygantry.gantrypos.y = y_fang_2;
-              break;
-            case 3:
-              mygantry.gantrypos.y = y_fang_3;
-              break;
-            case 4:
-              mygantry.gantrypos.y = y_fang_4;
-              break;
-            case 5:
-              mygantry.gantrypos.y = y_fang_5;
-              break;
-            }
+          }
+          else if(num == 2)
+          { 
+            mygantry.gantrypos.y = y_fang_2;
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
+            mygantry.gantrypos.y = y_fang_5;
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
@@ -1231,40 +1275,38 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1500);
+          osDelay(2000);
           step12 = 100 ;
         }
         if(step12 == 100)
         {
-          if(num > 1 && num < 6)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
-            mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(num == 2)
+          { 
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1309,28 +1351,26 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step12 = 3;//[3]运动到位
         }
         if(step12 == 3)
         {
-          if(num < 6 && num > 0)//不需要转动直接进行放置再回到中点
+         if(num > 2 && num < 5 )//
           {
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
             mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
+          }
+          else if(num == 2)
+          { 
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
@@ -1393,7 +1433,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.z = z_down_up;
         mygantry.gantrypos.degree = S0;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 4)
+        if(diff < 10)
         {
           osDelay(10);
           runflag = 1;
@@ -1413,7 +1453,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.z = z_down_up;
         float diff = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
-        if(diff < 4)
+        if(diff < 10)
         {
           runflag = 3;
           osDelay(10);
@@ -1426,7 +1466,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x = x_qu;
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        if(diff1 < 10 && diff2 < 4)
+        if(diff1 < 15 && diff2 < 4)
         {
           runflag = 4;
           osDelay(10);
@@ -1481,7 +1521,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 9)
       {
-        mygantry.gantrypos.y = y_qu_3 + 2.0;
+        mygantry.gantrypos.y = y_qu_3;
         mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 20)
@@ -1493,9 +1533,9 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 10)
       {
-        mygantry.gantrypos.x = x_qu + 26.0;
+        mygantry.gantrypos.x = x_qu + 24.0;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        if(diff < 10)
+        if(diff < 15)
         {
           runflag = 11;
           osDelay(50);
@@ -1509,7 +1549,7 @@ void uppergoingtask(void const * argument)
         {
           osDelay(50);
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          MIkp = 4.0;
+          MIkp = 4.5;
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);
           osDelay(100);
           runflag = 12;
@@ -1549,40 +1589,37 @@ void uppergoingtask(void const * argument)
           else if(mapping[5] == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(mapping[5] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[5] == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step20 = 100;
         }
         if(step20 == 100)
         {
-          if(mapping[5] < 6 && mapping[5] > 1)//不需要转动直接进行放置再回到中点
+          if(mapping[5] < 5 && mapping[5] > 2)//不需要转动直接进行放置再回到中点
           {
-            mygantry.gantrypos.x = x_fang_4;
-            switch(mapping[5]){
-            case 2:
+            if(mapping[5] == 3) mygantry.gantrypos.y = y_fang_3;
+            if(mapping[5] == 4) mygantry.gantrypos.y = y_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(mapping[5] == 2)
+          {
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }else if(mapping[5] == 5)
+          {
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(mapping[5] == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(mapping[5] == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1627,28 +1664,25 @@ void uppergoingtask(void const * argument)
           else if(mapping[2] == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(mapping[2] == 1) mygantry.gantrypos.degree = S90;
           else if(mapping[2] == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1500);
+          osDelay(2000);
           step20 = 3;
         }
         if(step20 == 3)
         {
-          if(mapping[2] < 6 && mapping[2] > 1)//不需要转动直接进行放置再回到中点
+          if(mapping[2] < 5 && mapping[2] > 2)//不需要转动直接进行放置再回到中点
           {
+            if(mapping[2] == 3) mygantry.gantrypos.y = y_fang_3;
+            if(mapping[2] == 4) mygantry.gantrypos.y = y_fang_4;
             mygantry.gantrypos.x = x_fang_4;
-            switch(mapping[2]){
-            case 2:
+          }
+          else if(mapping[2] == 2)
+          {
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }else if(mapping[2] == 5)
+          {
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(mapping[2] == 1)
           {
@@ -1709,41 +1743,38 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step21 = 100;
         }
         if(step21 == 100)
         {
-          if(num > 1 && num < 6)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
-            //转180度
-            mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(num == 2)
+          { 
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1787,28 +1818,26 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1500);
+          osDelay(2000);
           step21 = 400 ;
         }
         if(step21 == 400)
         {
-          if(num < 6 && num > 1)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
             mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
+          }
+          else if(num == 2)
+          { 
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
@@ -1871,40 +1900,38 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1500);
+          osDelay(2000);
           step22 = 100 ;
         }
         if(step22 == 100)
         {
-          if(num > 1 && num < 6)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
-            mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
+            mygantry.gantrypos.x = x_fang_4-5.0;
+          }
+          else if(num == 2)
+          { 
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {
             mygantry.gantrypos.y = y_fang_1;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           else if(num == 6)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1949,28 +1976,26 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(1500);
+          osDelay(2000);
           step22 = 3;//[3]运动到位
         }
         if(step22 == 3)
         {
-          if(num < 6 && num > 1)//不需要转动直接进行放置再回到中点
+          if(num > 2 && num < 5 )//
           {
+            if(num == 3) mygantry.gantrypos.y = y_fang_3;
+            if(num == 4) mygantry.gantrypos.y = y_fang_4;
             mygantry.gantrypos.x = x_fang_4;
-            switch(num){
-            case 2:
+          }
+          else if(num == 2)
+          { 
             mygantry.gantrypos.y = y_fang_2;
-            break;
-            case 3:
-            mygantry.gantrypos.y = y_fang_3;
-            break;
-            case 4:
-            mygantry.gantrypos.y = y_fang_4;
-            break;
-            case 5:
+            mygantry.gantrypos.x = x_fang_4_2;
+          }
+          else if(num == 5)
+          { 
             mygantry.gantrypos.y = y_fang_5;
-            break;
-            }
+            mygantry.gantrypos.x = x_fang_4_2;
           }
           else if(num == 1)
           {

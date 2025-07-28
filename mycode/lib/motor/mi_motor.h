@@ -123,5 +123,6 @@ extern void set_CANID_cybergear(MI_Motor *Motor, uint8_t CAN_ID);
 extern void init_cybergear(MI_Motor *Motor, uint8_t Can_Id, uint8_t mode);
 extern void motor_controlmode(MI_Motor *Motor,float torque, float MechPosition, float speed, float kp, float kd);
 
+void Set_Motor_Parameter(MI_Motor *Motor,uint16_t Index,float Value,char Value_type);
 uint32_t Get_Motor_ID(uint32_t CAN_ID_Frame);
 void Motor_Data_Handler(MI_Motor *Motor,uint8_t DataFrame[8],uint32_t IDFrame);
