@@ -64,4 +64,6 @@ extern uint16_t rx_complete2 ;
 
 extern float littlenum;
 extern uint16_t flag ;
+
+extern float Lcompensation ;
 #endif // !__PARAM_H__PARAM_H__

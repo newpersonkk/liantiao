@@ -7,7 +7,7 @@
 #include "wtr_can.h"
 #include "mi_motor.h"
 #include "math.h"
-
+float Lcompensation = 1.0;
 
 gantrystate mygantry; 
 float littlenum = 0.017;
@@ -31,11 +31,11 @@ void upperservotask(void const * argument)
     if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum)
      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
     if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > littlenum && fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < largenum)
-     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 50, 3.0);
+     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 50, 1.0);
     if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < littlenum)
-     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20, 1.0);
+     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 30, 0.5);
 
-    synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1, 1.0, 1.0, -1, 1);
+    synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1,Lcompensation, 1.0, -1, 1);
     positionServo_lidar(mygantry.gantrypos.y ,mygantry.Motor_Y, Lidar2);//y轴宽
     //Set_Motor_Parameter(&mi_motor[0],0x2013,0.05,'f');
     positionServo(mygantry.gantrypos.z, mygantry.Motor_Z);
@@ -125,9 +125,9 @@ void gantry_Motor_init()               //电机初始化
     osDelay(100);
     init_cybergear(&mi_motor[0], 0x7F, Motion_mode);
     set_zeropos_cybergear(&mi_motor[0]);
-
-    Set_Motor_Parameter(&mi_motor[0],0x2013,0.05,'f');
+    Set_Motor_Parameter(&mi_motor[0],0x2013,0.1,'f');
     
+
     motor_controlmode(&mi_motor[0], 0, 0, 0, 4.0, 2.0);
     osDelay(100);
     motor_controlmode(&mi_motor[0], 0, 0, 0, 4.0, 2.0);
