@@ -101,8 +101,18 @@ int main(void)
   MX_UART5_Init();
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
-  /* USER CODE END 2 */
+  RetargetInit(&huart3);
+  HAL_UART_Receive_IT(&huart4, &rxBuffer1[rxIndex1], 1);
+  HAL_UART_Receive_IT(&huart5, &rxBuffer2[rxIndex2], 1);
 
+  // while(flag1 == 0 || flag2 == 0)
+  // {
+  //   printf("%d\n",flag);
+  //   HAL_Delay(1000);
+  // }
+  /* USER CODE END 2 */
+  HAL_UART_AbortReceive_IT(&huart4);
+  HAL_UART_AbortReceive_IT(&huart5);
   /* Call init function for freertos objects (in freertos.c) */
   MX_FREERTOS_Init();
 

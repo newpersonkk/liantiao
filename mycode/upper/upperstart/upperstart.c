@@ -43,13 +43,13 @@ void StartDefaultTask(void const * argument)
                mygantry.Motor_S->speedPID.output,
                Lidar1.distance_aver
                );  
-
+        */
                
-        printf("%d,%d",rx_complete1,rx_complete2);
+        //printf("%d,%d",rx_complete1,rx_complete2);
         for (int i = 0; i < 6; i++) {
         printf("%d ", mapping[i]);
-        */
-    
+        
+    }
     osDelay(100);
   }
   /* USER CODE END StartDefaultTask */

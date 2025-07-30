@@ -3,6 +3,10 @@
 #define __PARAM_H__
 #include "decode.h"
 #include "DJI.h"
+
+#define BUFFER_SIZE 42
+#define MARKER '7'
+
 typedef struct 
 {
     double x;
@@ -66,4 +70,14 @@ extern float littlenum;
 extern uint16_t flag ;
 
 extern float Lcompensation ;
+
+extern uint16_t flag1 ;
+extern uint16_t flag2 ;
+
+extern uint8_t rxBuffer1[BUFFER_SIZE];
+extern uint8_t rxBuffer2[BUFFER_SIZE];
+extern uint8_t rxIndex1;
+extern uint8_t rxIndex2;
+
+
 #endif // !__PARAM_H__PARAM_H__

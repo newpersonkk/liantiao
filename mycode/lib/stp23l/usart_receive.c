@@ -95,31 +95,24 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     }
     if (huart->Instance == UART4)
     {
-        rx_buffer4[u4state] = uart4_rx[0]; // 存入缓冲区
-        u4state++;
-        flag = 1 ;
-        if (u4state >= 6)
-        {
-            memcpy(tx_buffer4, rx_buffer4, 6);// 复制到目标缓冲区rx_complete=1; // 设置完成标志
-            rx_complete1 = 1 ;
-        }
-        else 
-        {
-            HAL_UART_Receive_IT(&huart4, uart4_rx, 1);
-        }
+      rxIndex1++;
+    if (rxIndex1 >= BUFFER_SIZE) {
+      ProcessData1();
+      rxIndex1 = 0; // 重置缓冲区
     }
+    // 继续接收下一个字节
+    HAL_UART_Receive_IT(&huart4, &rxBuffer1[rxIndex1], 1);
+  }
     if (huart->Instance == UART5)
     {
-        rx_buffer5[u5state] = uart5_rx[0]; // 存入缓冲区
-        u5state++;
-        if (u5state >= 6)
-        {
-            memcpy(tx_buffer5, rx_buffer5, 6);// 复制到目标缓冲区rx_complete=1; // 设置完成标志
-            rx_complete2 = 1 ;
-        }
-        else 
-        {
-            HAL_UART_Receive_IT(&huart5, uart5_rx, 1);
-        }
+         flag = 1;
+      rxIndex2++;
+    if (rxIndex2 >= BUFFER_SIZE) {
+      ProcessData2();
+      rxIndex2 = 0; // 重置缓冲区
     }
+ 
+    // 继续接收下一个字节
+    HAL_UART_Receive_IT(&huart5, &rxBuffer2[rxIndex2], 1);
+  }
 }

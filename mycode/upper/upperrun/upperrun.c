@@ -9,6 +9,9 @@
 #include "string.h"
 #include <ctype.h>
 
+uint16_t flag1 = 0;
+uint16_t flag2 = 0;
+
 uint16_t stateflag = 0 ;
 uint16_t runflag = 0 ;//0
 uint16_t step00 = 0 ; 
@@ -28,8 +31,9 @@ int16_t zhiduo[6];
 int16_t mapping[6]={0,0,0,0,0,0};
 uint16_t jiaquzhuangtai = 0;//0
 
-float MIkp = 10.0;
-float MIkd = 2.0;
+float MIkp = 1.2 ;
+      //MIkd = 0.8 ;
+float MIkd = 0.8;
 
 float S0 = 0 ;//黑白向货箱 彩色向2345
 float S90 = 3.1415926/2.0f  ;//彩色向1纸垛 黑白向6纸垛
@@ -145,7 +149,7 @@ void uppergoingtask(void const * argument)
   float x_fang_4 = 3048.0;//3051  3040
   float x_fang_4_2 = 3048.0;//
   float x_fang_2 = 2815.0;
-  float x_middle = 2000.0;
+  float x_middle = 3000.0;
   float x_zhan = 2560.0;  
 
   float y_qu_1 = 210.0;
@@ -157,30 +161,26 @@ void uppergoingtask(void const * argument)
   float y_fang_2 = 1390.0;
   float y_fang_3 = 934.0;
   float y_fang_4 = 482.5;
-  float y_fang_5 = 78.5;
+  float y_fang_5 = 60.5;
   float y_fang_6 = 219.0;
 
+  xiangzi[0] = 5;
+  xiangzi[1] = 1;
+  xiangzi[2] = 3;
+  xiangzi[3] = 2;
+  xiangzi[4] = 6;
+  xiangzi[5] = 4;
 
-
-  
-  xiangzi[0] = 3;
-  xiangzi[1] = 5;
-  xiangzi[2] = 4;
-  xiangzi[3] = 1;
-  xiangzi[4] = 2;
-  xiangzi[5] = 6;
-  
-  zhiduo[0] = 4;
-  zhiduo[1] = 1;
-  zhiduo[2] = 3;
-  zhiduo[3] = 0;
-  zhiduo[4] = 6;
+  zhiduo[0] = 2;
+  zhiduo[1] = 3;
+  zhiduo[2] = 0;
+  zhiduo[3] = 4;
+  zhiduo[4] = 1;
   zhiduo[5] = 5;
-  
   osDelay(600);
   osDelay(1350);
-  //matchingnum(xiangzi, tx_buffer4);
- // matchingnum(zhiduo, tx_buffer5);
+  // matchingnum(xiangzi, tx_buffer4);
+  // matchingnum(zhiduo, tx_buffer5);
   generate_mapping_array(xiangzi,zhiduo,mapping);
   for(;;)
   {
@@ -309,7 +309,7 @@ void uppergoingtask(void const * argument)
         {
           runflag = 12;
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          MIkp = 4.0;
+          MIkp = 3.9;
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);
           osDelay(500);
         }
@@ -348,7 +348,7 @@ void uppergoingtask(void const * argument)
           else if(mapping[3] == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(mapping[3] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[3] == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step00 = 100;
         }
         if(step00 == 100)
@@ -423,7 +423,7 @@ void uppergoingtask(void const * argument)
           else if(mapping[0] == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(mapping[0] == 1) mygantry.gantrypos.degree = S90;
           else if(mapping[0] == 6) mygantry.gantrypos.degree = S270;
-          osDelay(2000);
+          osDelay(3000);
           step00 = 3;
         }
         if(step00 == 3)
@@ -499,7 +499,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step01 = 100;
         }
         if(step01 == 100)
@@ -659,7 +659,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(2000);
+          osDelay(3000);
           step02 = 100 ;
         }
         if(step02 == 100)
@@ -736,7 +736,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step02 = 3;
         }
         if(step02 == 3)
@@ -933,7 +933,7 @@ void uppergoingtask(void const * argument)
         if(diff < 10)
         {
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          MIkp = 4.0;
+          MIkp = 3.9;
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);
           osDelay(100);
           runflag = 12;
@@ -971,7 +971,7 @@ void uppergoingtask(void const * argument)
           else if(mapping[4] == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(mapping[4] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[4] == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step10 = 100;
         }
         if(step10 == 100)
@@ -1130,7 +1130,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step11 = 100;
         }
         if(step11 == 100)
@@ -1208,7 +1208,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(2000);
+          osDelay(3000);
           step11 = 400 ;
         }
         if(step11 == 400)
@@ -1292,7 +1292,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(2000);
+          osDelay(3000);
           step12 = 100 ;
         }
         if(step12 == 100)
@@ -1370,7 +1370,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step12 = 3;//[3]运动到位
         }
         if(step12 == 3)
@@ -1529,7 +1529,7 @@ void uppergoingtask(void const * argument)
       if(runflag == 7)
       {
         mygantry.gantrypos.y = y_middle;
-        mygantry.gantrypos.z = z_upeer_down;
+        mygantry.gantrypos.z = z_upeer_up;
         osDelay(500);
         mygantry.gantrypos.degree = S180 + 0.017;
         float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
@@ -1543,7 +1543,7 @@ void uppergoingtask(void const * argument)
       if(runflag == 9)
       {
         mygantry.gantrypos.y = y_qu_3;
-        mygantry.gantrypos.z = z_upeer_up;
+        //mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 20)
         {
@@ -1570,7 +1570,7 @@ void uppergoingtask(void const * argument)
         {
           osDelay(50);
           __HAL_TIM_SetCompare(&htim4,TIM_CHANNEL_1,zhuazicaiclose);
-          MIkp = 4.5;
+          MIkp = 3.9;
           pid_reset(&(mygantry.Motor_Y->posPID), 15.000002, 0.0, 0);
           osDelay(100);
           runflag = 12;
@@ -1610,7 +1610,7 @@ void uppergoingtask(void const * argument)
           else if(mapping[5] == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(mapping[5] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[5] == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step20 = 100;
         }
         if(step20 == 100)
@@ -1687,7 +1687,7 @@ void uppergoingtask(void const * argument)
           else if(mapping[2] == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(mapping[2] == 1) mygantry.gantrypos.degree = S90;
           else if(mapping[2] == 6) mygantry.gantrypos.degree = S270;
-          osDelay(2000);
+          osDelay(3000);
           step20 = 3;
         }
         if(step20 == 3)
@@ -1768,7 +1768,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step21 = 100;
         }
         if(step21 == 100)
@@ -1845,7 +1845,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(2000);
+          osDelay(3000);
           step21 = 400 ;
         }
         if(step21 == 400)
@@ -1929,7 +1929,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S0 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(2000);
+          osDelay(3000);
           step22 = 100 ;
         }
         if(step22 == 100)
@@ -2007,7 +2007,7 @@ void uppergoingtask(void const * argument)
           else if(num == 5) mygantry.gantrypos.degree = S180 - errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
-          osDelay(2000);
+          osDelay(3000);
           step22 = 3;//[3]运动到位
         }
         if(step22 == 3)
