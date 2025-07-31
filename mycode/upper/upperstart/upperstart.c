@@ -47,6 +47,13 @@ void StartDefaultTask(void const * argument)
                
         //printf("%d,%d",rx_complete1,rx_complete2);
         for (int i = 0; i < 6; i++) {
+        printf("%d ", xiangzi[i]);
+        }
+        for (int i = 0; i < 6; i++) {
+            printf("%d ", zhiduo[i]);
+            
+        }
+        for (int i = 0; i < 6; i++) {
         printf("%d ", mapping[i]);
         
     }

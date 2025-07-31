@@ -10,8 +10,8 @@
 float Lcompensation = 1.0;
 
 gantrystate mygantry; 
-float littlenum = 0.017;
-float largenum = 0.174;
+float littlenum = 0.034;
+float largenum = 3.1415926535 * 4.0 / 180.0;
 
 
 uint16_t timeout = 0;
@@ -30,13 +30,18 @@ void upperservotask(void const * argument)
     STP_23L_Decode(Rxbuffer_1, &Lidar1);//激光是轴的
     STP_23L_Decode(Rxbuffer_2, &Lidar2);//激光是长轴的
     //计算
-    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum)
-     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
-    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > littlenum && fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < largenum)
-     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 50, 2.0);
+    // if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum)
+    //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
+    // if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > littlenum && fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < largenum)
+    //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 50, 2.0);
+    // if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < littlenum)
+    //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20, 1.0);
+    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum )
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
+    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < largenum && fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > littlenum)
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 8.0, 1.5);
     if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < littlenum)
-     motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20, 1.0);
-
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20.0, 4.0);
       // MIkp = 1.2 ;
       // MIkd = 0.8 ;
 
@@ -86,7 +91,6 @@ void gantry_Motor_init()               //电机初始化
     //pid_reset(&(mygantry.Motor_X->speedPID), 1.1, 0.06, 0.01);//一个箱子
     //pid_reset(&(mygantry.Motor_X->speedPID), 1.0, 0.01, 0.01);//两个箱子
 
-
     pid_reset(&(mygantry.Motor_XR->speedPID), 12, 0.2, 5.0);//x  //10.0 0.5 0.05
     pid_reset(&(mygantry.Motor_XR->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
 
@@ -135,15 +139,14 @@ void gantry_Motor_init()               //电机初始化
     //小米电机调0
     osDelay(100);
     init_cybergear(&mi_motor[0], 0x7F, Motion_mode);
+    osDelay(500);
     set_zeropos_cybergear(&mi_motor[0]);
     // Set_Motor_Parameter(&mi_motor[0],0x2013,1.0,'f');
     //Set_Motor_Parameter(&mi_motor[0],0x2013,0.5,'f');
     
 
-    motor_controlmode(&mi_motor[0], 0, 0, 0, 4.0, 2.5);
-    osDelay(100);
-
-
+    motor_controlmode(&mi_motor[0], 0, 0, 0, 1.0, 0.5); //空
+    osDelay(500);
     //小米电机 过滤器设置 hcan2
 
     //逆时针旋转为正
