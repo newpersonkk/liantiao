@@ -146,7 +146,7 @@ void uppergoingtask(void const * argument)
 
   float x_qu = 198.0;
   float x_qu_ps = 600;
-  float x_fang_4 = 3050.0;//3051  3040
+  float x_fang_4 = 3049.0;//3051  3040
   float x_fang_4_2 = 3048.0;//
   float x_fang_2 = 2815.0;
   float x_middle = 2000.0;
@@ -158,12 +158,11 @@ void uppergoingtask(void const * argument)
   float y_middle = 750.0;
 
   float y_fang_1 = 1200.0;
-  float y_fang_2 = 1385.0;
+  float y_fang_2 = 1388.0;
   float y_fang_3 = 944.0;
-  float y_fang_4 = 490.5;
-  float y_fang_5 = 62.5;
-  float y_fang_6 = 219.0;
-
+  float y_fang_4 = 486.5;
+  float y_fang_5 = 50.5;
+  float y_fang_6  = 214.0;
 
 
   // xiangzi[0] = 3;
@@ -348,7 +347,7 @@ void uppergoingtask(void const * argument)
         if(step00 == 0)
         {
           if(mapping[3] < 5 && mapping[3] > 2)  mygantry.gantrypos.degree = S180;
-          else if(mapping[3] == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(mapping[3] == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(mapping[3] == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(mapping[3] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[3] == 6) mygantry.gantrypos.degree = S90;
@@ -363,7 +362,7 @@ void uppergoingtask(void const * argument)
             if(mapping[3] == 4) 
             {
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -374,8 +373,8 @@ void uppergoingtask(void const * argument)
           }else if(mapping[3] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02;
           }
           else if(mapping[3] == 1)
           {
@@ -385,9 +384,9 @@ void uppergoingtask(void const * argument)
           }
           else if(mapping[3] == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-1.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -429,7 +428,7 @@ void uppergoingtask(void const * argument)
         if(step00 == 200)//一个箱子
         {
           if(mapping[0] < 5 && mapping[0] > 2)  mygantry.gantrypos.degree = S0;
-          else if(mapping[0] == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(mapping[0] == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(mapping[0] == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(mapping[0] == 1) mygantry.gantrypos.degree = S90;
           else if(mapping[0] == 6) mygantry.gantrypos.degree = S270;
@@ -444,7 +443,7 @@ void uppergoingtask(void const * argument)
             if(mapping[0] == 4)
             { 
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -455,8 +454,8 @@ void uppergoingtask(void const * argument)
           }else if(mapping[0] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02;
           }
           else if(mapping[0] == 1)
           {
@@ -466,9 +465,9 @@ void uppergoingtask(void const * argument)
           }
           else if(mapping[0] == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2 - 3.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -512,7 +511,7 @@ void uppergoingtask(void const * argument)
         if(step01 == 0)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
-          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
@@ -527,7 +526,7 @@ void uppergoingtask(void const * argument)
             if(num == 4) 
             {
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -539,8 +538,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02;
           }
           else if(num == 1)
           { 
@@ -550,9 +549,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-10.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -595,11 +594,11 @@ void uppergoingtask(void const * argument)
         if(step01 == 3) //现在是S180S270
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
-          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
-          osDelay(1000);
+          osDelay(2000);
           step01 = 400 ;
         }
         if(step01 == 400)
@@ -610,7 +609,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -622,8 +621,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2- 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           { 
@@ -633,9 +632,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2 -8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -682,7 +681,7 @@ void uppergoingtask(void const * argument)
         if(step02 == 0)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
-          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S0 - 1.1* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
@@ -697,7 +696,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -708,8 +707,8 @@ void uppergoingtask(void const * argument)
           }else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           { 
@@ -719,9 +718,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -764,7 +763,7 @@ void uppergoingtask(void const * argument)
         if(step02 == 300)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
-          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
@@ -779,7 +778,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             { 
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -791,8 +790,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -802,9 +801,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2- 8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -929,7 +928,7 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 7)
       {
-        mygantry.gantrypos.y = y_middle;
+        mygantry.gantrypos.y = y_qu_2;
         mygantry.gantrypos.z = z_upeer_down;
         osDelay(500);
         mygantry.gantrypos.degree = S180 ;
@@ -944,14 +943,14 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 9)
       {
-        mygantry.gantrypos.y = y_qu_2 + 5.0;
+        mygantry.gantrypos.y = y_qu_2 + 6.0;
         mygantry.gantrypos.z = z_upeer_up;
-        mygantry.gantrypos.degree = S180 - 0.017;
+        mygantry.gantrypos.degree = S180 - 0.025;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 40)
         {
           runflag = 10;
-          osDelay(50);
+          osDelay(200);
         } 
       }
       if(runflag == 10)
@@ -1006,7 +1005,7 @@ void uppergoingtask(void const * argument)
       {
         if(step10 == 0){
         if(mapping[4] < 5 && mapping[4] > 2)  mygantry.gantrypos.degree = S180;
-          else if(mapping[4] == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(mapping[4] == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(mapping[4] == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(mapping[4] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[4] == 6) mygantry.gantrypos.degree = S90;
@@ -1021,7 +1020,7 @@ void uppergoingtask(void const * argument)
             if(mapping[4] == 4)
             {
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -1032,8 +1031,8 @@ void uppergoingtask(void const * argument)
           }else if(mapping[4] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(mapping[4] == 1)
           {
@@ -1043,9 +1042,9 @@ void uppergoingtask(void const * argument)
           }
           else if(mapping[4] == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1089,7 +1088,7 @@ void uppergoingtask(void const * argument)
         if(step10 == 200)
         {
           if(mapping[1] < 5 && mapping[1] > 2)  mygantry.gantrypos.degree = S0;
-          else if(mapping[1] == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(mapping[1] == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(mapping[1] == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(mapping[1] == 1) mygantry.gantrypos.degree = S90;
           else if(mapping[1] == 6) mygantry.gantrypos.degree = S270;
@@ -1104,7 +1103,7 @@ void uppergoingtask(void const * argument)
             if(mapping[1] == 4)
             { 
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -1115,8 +1114,8 @@ void uppergoingtask(void const * argument)
           }else if(mapping[1] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(mapping[1] == 1)
           {
@@ -1126,9 +1125,9 @@ void uppergoingtask(void const * argument)
           }
           else if(mapping[1] == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2- 8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1175,7 +1174,7 @@ void uppergoingtask(void const * argument)
         uint16_t num = mapping[1] + mapping[4];
         if(step11 == 0){
         if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
-          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
@@ -1190,7 +1189,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -1202,8 +1201,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -1215,7 +1214,7 @@ void uppergoingtask(void const * argument)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1258,7 +1257,7 @@ void uppergoingtask(void const * argument)
         if(step11 == 3) //现在是S180
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
-          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
@@ -1273,7 +1272,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             { 
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -1285,8 +1284,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -1296,9 +1295,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2- 8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1347,7 +1346,7 @@ void uppergoingtask(void const * argument)
         if(step12 == 0)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
-          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
@@ -1362,7 +1361,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             {
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -1374,8 +1373,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -1385,9 +1384,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1430,7 +1429,7 @@ void uppergoingtask(void const * argument)
         if(step12 == 300)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
-          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
@@ -1445,7 +1444,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -1457,8 +1456,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -1470,7 +1469,7 @@ void uppergoingtask(void const * argument)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2- 8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1601,7 +1600,7 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.y = y_middle;
         mygantry.gantrypos.z = z_upeer_up;
         osDelay(500);
-        mygantry.gantrypos.degree = S180 + 0.009;
+        mygantry.gantrypos.degree = S180 - 0.017;
         float diff1 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.z - hDJI[4].AxisData.AxisAngle_inDegree);
         if(diff1 < 50 && diff2 < 30)
@@ -1612,19 +1611,19 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 9)
       {
-        mygantry.gantrypos.y = y_qu_3 +2.0;
+        mygantry.gantrypos.y = y_qu_3 + 5.0;
         //mygantry.gantrypos.z = z_upeer_up;
         float diff = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
         if(diff < 20)
         {
-          mygantry.gantrypos.degree = S180;
+          mygantry.gantrypos.degree = S180 - 0.009;
           runflag = 10;
           osDelay(50);
         } 
       }
       if(runflag == 10)
       {
-        mygantry.gantrypos.x = x_qu + 24.0;
+        mygantry.gantrypos.x = x_qu + 19.0;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         if(diff < 15)
         {
@@ -1677,7 +1676,7 @@ void uppergoingtask(void const * argument)
         if(step20 == 0)
         {
           if(mapping[5] < 5 && mapping[5] > 2)  mygantry.gantrypos.degree = S180;
-          else if(mapping[5] == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(mapping[5] == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(mapping[5] == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(mapping[5] == 1) mygantry.gantrypos.degree = S270;
           else if(mapping[5] == 6) mygantry.gantrypos.degree = S90;
@@ -1692,7 +1691,7 @@ void uppergoingtask(void const * argument)
             if(mapping[5] == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -1703,8 +1702,8 @@ void uppergoingtask(void const * argument)
           }else if(mapping[5] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(mapping[5] == 1)
           {
@@ -1714,9 +1713,9 @@ void uppergoingtask(void const * argument)
           }
           else if(mapping[5] == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1736,7 +1735,7 @@ void uppergoingtask(void const * argument)
             osDelay(200);
             mygantry.gantrypos.z = z_middle;
             MIkp = 1.8;
-          MIkd = 1.0;
+            MIkd = 1.0;
             osDelay(200);
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
@@ -1759,7 +1758,7 @@ void uppergoingtask(void const * argument)
         if(step20 == 200)
         {
           if(mapping[2] < 5 && mapping[2] > 2)  mygantry.gantrypos.degree = S0;
-          else if(mapping[2] == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(mapping[2] == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(mapping[2] == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(mapping[2] == 1) mygantry.gantrypos.degree = S90;
           else if(mapping[2] == 6) mygantry.gantrypos.degree = S270;
@@ -1774,7 +1773,7 @@ void uppergoingtask(void const * argument)
             if(mapping[2] == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -1785,8 +1784,8 @@ void uppergoingtask(void const * argument)
           }else if(mapping[2] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(mapping[2] == 1)
           {
@@ -1798,7 +1797,7 @@ void uppergoingtask(void const * argument)
           {
             mygantry.gantrypos.y = y_fang_6;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2- 8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1845,7 +1844,7 @@ void uppergoingtask(void const * argument)
         if(step21 == 0)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
-          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
@@ -1860,7 +1859,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -1872,8 +1871,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -1883,9 +1882,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -1906,7 +1905,7 @@ void uppergoingtask(void const * argument)
             mygantry.gantrypos.z = z_middle;
             osDelay(200);
             MIkp = 1.8;
-          MIkd = 1.0;
+            MIkd = 1.0;
             __HAL_TIM_SetCompare(&htim3,TIM_CHANNEL_1,zhuazibhclose);
             pid_reset(&(mygantry.Motor_Y->posPID), 15.000001, 0.0, 0);
             step21 = 2;
@@ -1927,7 +1926,7 @@ void uppergoingtask(void const * argument)
         if(step21 == 3) //现在是S180
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
-          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
@@ -1942,7 +1941,7 @@ void uppergoingtask(void const * argument)
             if(num == 4)
             {
                mygantry.gantrypos.y = y_fang_4;
-               Lcompensation = 1.02;
+               Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -1954,8 +1953,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -1965,9 +1964,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2- 8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -2016,7 +2015,7 @@ void uppergoingtask(void const * argument)
         if(step22 == 0)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S0;
-          else if(num == 2) mygantry.gantrypos.degree = S0 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S0 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S0 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S90;
           else if(num == 6) mygantry.gantrypos.degree = S270;
@@ -2031,7 +2030,7 @@ void uppergoingtask(void const * argument)
             if(num == 4) 
             {
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4-5.0;
           }
@@ -2043,8 +2042,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -2054,9 +2053,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2-5.0;
+            mygantry.gantrypos.x = x_fang_2-8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
@@ -2099,7 +2098,7 @@ void uppergoingtask(void const * argument)
         if(step22 == 300)
         {
           if(num < 5 && num > 2)  mygantry.gantrypos.degree = S180;
-          else if(num == 2) mygantry.gantrypos.degree = S180 + errorth;
+          else if(num == 2) mygantry.gantrypos.degree = S180 +1.1 *errorth;
           else if(num == 5) mygantry.gantrypos.degree = S180 - 1.2* errorth;
           else if(num == 1) mygantry.gantrypos.degree = S270;
           else if(num == 6) mygantry.gantrypos.degree = S90;
@@ -2114,7 +2113,7 @@ void uppergoingtask(void const * argument)
             if(num == 4) 
             {
               mygantry.gantrypos.y = y_fang_4;
-              Lcompensation = 1.02;
+              Lcompensation = 1.01;
             }
             mygantry.gantrypos.x = x_fang_4;
           }
@@ -2126,8 +2125,8 @@ void uppergoingtask(void const * argument)
           else if(num == 5)
           { 
             mygantry.gantrypos.y = y_fang_5;
-            mygantry.gantrypos.x = x_fang_4_2;
-            Lcompensation = 1.05 ;
+            mygantry.gantrypos.x = x_fang_4_2 - 5.0;
+            Lcompensation = 1.02 ;
           }
           else if(num == 1)
           {
@@ -2137,9 +2136,9 @@ void uppergoingtask(void const * argument)
           }
           else if(num == 6)
           {
-            mygantry.gantrypos.y = y_fang_6;
+            mygantry.gantrypos.y = y_fang_6 ;  
             osDelay(800);
-            mygantry.gantrypos.x = x_fang_2;
+            mygantry.gantrypos.x = x_fang_2- 8.0;
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);

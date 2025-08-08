@@ -51,7 +51,6 @@ void StartDefaultTask(void const * argument)
         }
         for (int i = 0; i < 6; i++) {
             printf("%d ", zhiduo[i]);
-            
         }
         for (int i = 0; i < 6; i++) {
         printf("%d ", mapping[i]);

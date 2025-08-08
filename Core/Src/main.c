@@ -107,7 +107,14 @@ int main(void)
 
   while(flag1 == 0 || flag2 == 0)
   {
-    printf("%d\n",flag);
+    for (int i = 0; i < 42; i++) {
+        printf("%c", rxBuffer1[i]);
+        }
+        printf("\n");    
+        for (int i = 0; i < 42; i++) {
+            printf("%c ", rxBuffer2[i]);
+        }
+    printf("\n");    
     HAL_Delay(1000);
   }
   /* USER CODE END 2 */
