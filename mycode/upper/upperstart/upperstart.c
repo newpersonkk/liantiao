@@ -13,6 +13,7 @@ void StartDefaultTask(void const * argument)
 
   HAL_UART_Receive_IT(&huart1, usart1_rx, 1);
   HAL_UART_Receive_IT(&huart2, usart2_rx, 1);
+  HAL_UART_Receive_IT(&huart6, usart6_rx, 1);
 
   RetargetInit(&huart3);
   HAL_UART_Receive_IT(&huart4, uart4_rx, 1);
@@ -29,8 +30,8 @@ void StartDefaultTask(void const * argument)
     printf("%f,%f,%f,%d,%f,%f,%f,%f\r\n",
                Lidar1.distance_aver,
                Lidar2.distance_aver,
+               Lidar6.distance_aver,
                hDJI[4].AxisData.AxisAngle_inDegree,
-               flag,
                mygantry.gantrypos.x,
                mygantry.gantrypos.y,
                mygantry.gantrypos.z,

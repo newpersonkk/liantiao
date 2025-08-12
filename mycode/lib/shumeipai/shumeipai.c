@@ -1,6 +1,6 @@
 
 #include "param.h"
-
+#include "string.h"
 #define BUFFER_SIZE 42
 #define MARKER '7'
 

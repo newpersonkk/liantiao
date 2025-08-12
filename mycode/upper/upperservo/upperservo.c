@@ -29,6 +29,7 @@ void upperservotask(void const * argument)
 
     STP_23L_Decode(Rxbuffer_1, &Lidar1);//激光是轴的
     STP_23L_Decode(Rxbuffer_2, &Lidar2);//激光是长轴的
+    STP_23L_Decode(Rxbuffer_6, &Lidar6);
     //计算
     // if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum)
     //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
@@ -52,7 +53,9 @@ void upperservotask(void const * argument)
       // MIkd = 0.8 ;
 
 
-    synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1,Lcompensation, 1.0, -1, 1);
+    //synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1,Lcompensation, 1.0, -1, 1);
+    positionServo_lidar(mygantry.gantrypos.x ,mygantry.Motor_XL, Lidar6);//y轴宽
+    positionServo_lidar(mygantry.gantrypos.x ,mygantry.Motor_XR, Lidar1);//y轴宽
     positionServo_lidar(mygantry.gantrypos.y ,mygantry.Motor_Y, Lidar2);//y轴宽
     positionServo(mygantry.gantrypos.z, mygantry.Motor_Z);
   
@@ -95,7 +98,7 @@ void gantry_Motor_init()               //电机初始化
     pid_reset(&(mygantry.Motor_XR->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
 
     pid_reset(&(mygantry.Motor_XL->speedPID), 12, 0.2, 5.0);//x  //10.0 0.5 0.05
-    pid_reset(&(mygantry.Motor_XL->posPID), 8.0, 0.0, 0.0);//x  //70 0.04 
+    pid_reset(&(mygantry.Motor_XL->posPID), -8.0, 0.0, 0.0);//x  //70 0.04 
     //pid_reset(&(mygantry.Motor_X->posPID), 8.000001, 0.0, 0.0);
     //pid_reset(&(mygantry.Motor_X->posPID), 8.000002, 0.0, 0.0);
 
@@ -147,8 +150,8 @@ void gantry_Motor_init()               //电机初始化
 
     motor_controlmode(&mi_motor[0], 0, 0, 0, 1.0, 0.5); //空
     osDelay(500);
-    //小米电机 过滤器设置 hcan2
 
+    //运控模式
     //逆时针旋转为正
     //motor_controlmode(&mi_motor[0], 0, 3.1415926/2.0f, 0, 1.0, 0.5);
     //小米电机夹住�?个箱�?
