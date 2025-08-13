@@ -12,7 +12,7 @@ float Lcompensation = 1.0;
 gantrystate mygantry; 
 float littlenum = 0.034;
 float largenum = 3.1415926535 * 4.0 / 180.0;
-
+float degreespeed = 80 ;
 
 uint16_t timeout = 0;
 void upperservotask(void const * argument)
@@ -21,6 +21,7 @@ void upperservotask(void const * argument)
   mygantry.gantrypos.x = 2000.0;
   mygantry.gantrypos.y = 720.0;
   Lidar1.distance_aver = 2000.0;
+  Lidar6.distance_aver = 2000.0;
   Lidar2.distance_aver = 720;
   osDelay(1800);
   /* Infinite loop */
@@ -37,12 +38,16 @@ void upperservotask(void const * argument)
     //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 50, 2.0);
     // if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < littlenum)
     //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20, 1.0);
-    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum )
+    // if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum )
+
+    //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
+    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 10.0)
       motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
-    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < largenum && fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > littlenum)
-      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 8.0, 1.5);
-    if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) < littlenum)
-      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20.0, 4.0);
+    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 3.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 10.0)
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 5.0, 1.5);
+    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 3.0)
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 10.0, 1.8);
+    
       // MIkp = 1.2 ;
       // MIkd = 0.8 ;
 
@@ -146,11 +151,12 @@ void gantry_Motor_init()               //电机初始化
     set_zeropos_cybergear(&mi_motor[0]);
     // Set_Motor_Parameter(&mi_motor[0],0x2013,1.0,'f');
     //Set_Motor_Parameter(&mi_motor[0],0x2013,0.5,'f');
-    
-
-    motor_controlmode(&mi_motor[0], 0, 0, 0, 1.0, 0.5); //空
+    motor_controlmode(&mi_motor[0], 0, 0, 0, 1.0, 0.5);
+    osDelay(20);
+    motor_controlmode(&mi_motor[0], 0, 0, 0, 1.0, 0.5);
     osDelay(500);
-
+    //set_position_target_and_speed(&mi_motor[0] , 3.141592654 * 1.0, 80 / 180.0 * 3.1415926);
+    // 两个箱子40rad/s  一个箱子60rad/s  空载80rad/s
     //运控模式
     //逆时针旋转为正
     //motor_controlmode(&mi_motor[0], 0, 3.1415926/2.0f, 0, 1.0, 0.5);

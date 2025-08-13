@@ -277,6 +277,21 @@ void motor_controlmode(MI_Motor *Motor,float torque, float MechPosition, float s
     can_txd();
 }
 
+/**
+ * @brief  设置位置模式的目标位置和目标速度（只写入参数，不切模式、不使能）
+ * @param  Motor: 电机结构体指针
+ * @param  target_pos_rad: 目标位置，单位弧度
+ * @param  target_speed_rad_s: 目标速度，单位 rad/s
+ */
+void set_position_target_and_speed(MI_Motor *Motor, float target_pos_rad, float target_speed_rad_s)
+{
+    // 写入目标位置（Loc_Ref）
+    Set_Motor_Parameter(Motor, Loc_Ref, target_pos_rad, 'f');
+    
+    // 写入目标速度限制（Limit_Spd）
+    Set_Motor_Parameter(Motor, Limit_Spd, target_speed_rad_s, 'f');
+}
+
 void return_to_poweron_position(MI_Motor *Motor)
 {
     if (Motor->PowerOnFlag) {

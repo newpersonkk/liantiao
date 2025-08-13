@@ -81,5 +81,5 @@ extern uint8_t rxBuffer2[BUFFER_SIZE];
 extern uint8_t rxIndex1;
 extern uint8_t rxIndex2;
 
-
+extern float degreespeed;
 #endif // !__PARAM_H__PARAM_H__
