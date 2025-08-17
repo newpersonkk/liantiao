@@ -102,7 +102,7 @@ int main(void)
   MX_UART5_Init();
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
-  RetargetInit(&huart3);
+  //RetargetInit(&huart3);
   // HAL_UART_Receive_IT(&huart4, &rxBuffer1[rxIndex1], 1);
   // HAL_UART_Receive_IT(&huart5, &rxBuffer2[rxIndex2], 1);
 

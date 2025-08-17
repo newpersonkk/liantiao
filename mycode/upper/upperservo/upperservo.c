@@ -43,10 +43,14 @@ void upperservotask(void const * argument)
     //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
     if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 10.0)
       motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
-    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 3.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 10.0)
+    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 8.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 10.0)
       motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 5.0, 1.5);
+      if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 5.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 8.0)
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 10.0, 2.0);
+      if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 3.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 5.0)
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 15.0, 2.5);
     if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 3.0)
-      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 10.0, 1.8);
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20.0, 3.0);
     
       // MIkp = 1.2 ;
       // MIkd = 0.8 ;
@@ -59,8 +63,8 @@ void upperservotask(void const * argument)
 
 
     //synchronizedPositionServo(mygantry.gantrypos.x, mygantry.Motor_XL, mygantry.Motor_XR,&Lidar1,Lcompensation, 1.0, -1, 1);
-    positionServo_lidar(mygantry.gantrypos.x ,mygantry.Motor_XL, Lidar6);//y轴宽
-    positionServo_lidar(mygantry.gantrypos.x ,mygantry.Motor_XR, Lidar1);//y轴宽
+    positionServo_lidar(mygantry.gantrypos.x - 30.0 ,mygantry.Motor_XL, Lidar6);// x轴左
+    positionServo_lidar(mygantry.gantrypos.x ,mygantry.Motor_XR, Lidar1);//x轴右
     positionServo_lidar(mygantry.gantrypos.y ,mygantry.Motor_Y, Lidar2);//y轴宽
     positionServo(mygantry.gantrypos.z, mygantry.Motor_Z);
   
