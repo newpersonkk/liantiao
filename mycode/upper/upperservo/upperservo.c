@@ -22,7 +22,7 @@ void upperservotask(void const * argument)
   mygantry.gantrypos.y = 720.0;
   Lidar1.distance_aver = 2000.0;
   Lidar6.distance_aver = 2000.0;
-  Lidar2.distance_aver = 720;
+  Lidar2.distance_aver = 720.01;
   osDelay(1800);
   /* Infinite loop */
   for(;;)
@@ -41,13 +41,13 @@ void upperservotask(void const * argument)
     // if(fabs(mygantry.gantrypos.degree - mi_motor[0].Angle) > largenum )
 
     //  motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
-    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 10.0)
-      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp, MIkd);
+    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 10.0) // 对
+      motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, MIkp ,MIkd);//MIkp MIkd
     if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 8.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 10.0)
       motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 5.0, 1.5);
-      if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 5.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 8.0)
+    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 5.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 8.0)
       motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 10.0, 2.0);
-      if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 3.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 5.0)
+    if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) > 3.0 && fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 5.0)
       motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 15.0, 2.5);
     if(fabs(mygantry.gantrypos.degree /3.1415926  * 180.0- mi_motor[0].Angle) < 3.0)
       motor_controlmode(&mi_motor[0], 0, mygantry.gantrypos.degree, 0, 20.0, 3.0);

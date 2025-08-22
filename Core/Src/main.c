@@ -27,6 +27,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "param.h"
+#include "stdio.h"
+#include "retarget.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -102,24 +104,27 @@ int main(void)
   MX_UART5_Init();
   MX_CAN2_Init();
   /* USER CODE BEGIN 2 */
-  //RetargetInit(&huart3);
-  // HAL_UART_Receive_IT(&huart4, &rxBuffer1[rxIndex1], 1);
-  // HAL_UART_Receive_IT(&huart5, &rxBuffer2[rxIndex2], 1);
+  RetargetInit(&huart3);
+  HAL_UART_Receive_IT(&huart4, &rxBuffer1[rxIndex1], 1);
+  HAL_UART_Receive_IT(&huart5, &rxBuffer2[rxIndex2], 1);
 
-  // while(flag1 == 0 || flag2 == 0)
-  // {
-  //   for (int i = 0; i < 42; i++) {
-  //       printf("%c", rxBuffer1[i]);
-  //       }
-  //       printf("\n");    
-  //       for (int i = 0; i < 42; i++) {
-  //           printf("%c ", rxBuffer2[i]);
-  //       }
-  //   printf("\n");    
-  //   HAL_Delay(1000);
-  // }
+  while(flag1 == 0 || flag2 == 0)
+  {
+    for (int i = 0; i < 42; i++) {
+        printf("%c", rxBuffer1[i]);
+        }
+        printf("\n");    
+        for (int i = 0; i < 42; i++) {
+            printf("%c ", rxBuffer2[i]);
+        }
+    printf("\n");    
+    HAL_Delay(1000);
+  }
 
+  HAL_UART_AbortReceive_IT(&huart4);
+  HAL_UART_AbortReceive_IT(&huart5);
   /* USER CODE END 2 */
+
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
   MX_FREERTOS_Init();

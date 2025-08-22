@@ -166,7 +166,7 @@ void uppergoingtask(void const * argument)
   float x_errorth = 8.0;
   float x_1errorth = 0;
   float x_2errorth = 0;
-  float x_fang_4_2 = 3005.0;//
+  float x_fang_4_2 = 3001.0;//
   float x_fang_2 = 2822.0;
   float x_middle = 1980.0;
   float x_zhan = 2590.0;  
@@ -181,26 +181,29 @@ void uppergoingtask(void const * argument)
   float y_fang_2 = 1388.0;
   float y_fang_3 = 950.0;
   float y_fang_4 = 480.5;
+
+
+
   float y_fang_5 = 60.5;
   float y_fang_6  = 270.0;
 
-  xiangzi[0] = 5;
-  xiangzi[1] = 2;//
-  xiangzi[2] = 1;
-  xiangzi[3] = 4;
-  xiangzi[4] = 3;//
-  xiangzi[5] = 6;
+  // xiangzi[0] = 5;
+  // xiangzi[1] = 2;//
+  // xiangzi[2] = 1;
+  // xiangzi[3] = 4;
+  // xiangzi[4] = 3;//
+  // xiangzi[5] = 6;
 
-  zhiduo[0] = 1;
-  zhiduo[1] = 2;
-  zhiduo[2] = 0;
-  zhiduo[3] = 4;
-  zhiduo[4] = 6;
-  zhiduo[5] = 3;
+  // zhiduo[0] = 1;
+  // zhiduo[1] = 2;
+  // zhiduo[2] = 0;
+  // zhiduo[3] = 4;
+  // zhiduo[4] = 6;
+  // zhiduo[5] = 3;
   osDelay(600);
   osDelay(1350);
-  // matchingnum(xiangzi, tx_buffer4);
-  // matchingnum(zhiduo, tx_buffer5);
+  matchingnum(xiangzi, tx_buffer4);
+  matchingnum(zhiduo, tx_buffer5);
   generate_mapping_array(xiangzi,zhiduo,mapping);
   for(;;)
   {
