@@ -156,28 +156,29 @@ void uppergoingtask(void const * argument)
   float z_upeer_down = 870;
   float z_down_up = 240;
   float z_down_down = 10;
-  float z_zhiduo_fang = 192.0;
+  float z_zhiduo_fang = 188.0;
   float z_zhiduo_fang2 = 450;
   float z_middle = 850;
 
-  float x_qu = 255.0;
+  float x_qu = 264.0;
   float x_qu_ps = 600;
-  float x_fang_4 = 3005.0;//3051  3040
+  float x_fang_4 = 3011.0;//3051  3040
+  float x_fix = 40.0;
   float x_errorth = 8.0;
   float x_1errorth = 0;
   float x_2errorth = 0;
-  float x_fang_4_2 = 3001.0;//
-  float x_fang_2 = 2822.0;
+  float x_fang_4_2 = 3011.0;//
+  float x_fang_2 = 2827.0;
   float x_middle = 1980.0;
-  float x_zhan = 2590.0;  
+  float x_zhan = 2660.0;  
 
-  float y_qu_1 = 210.0;
+  float y_qu_1 = 204.0;
   float y_qu_2 = 710.0;
-  float y_qu_3 = 1210.0;
+  float y_qu_3 = 1204.0;
   float y_middle = 750.0;
   float y_errorth = -3.0;  
 
-  float y_fang_1 = 1153.0;
+  float y_fang_1 = 1149.0;
   float y_fang_2 = 1388.0;
   float y_fang_3 = 950.0;
   float y_fang_4 = 480.5;
@@ -187,19 +188,19 @@ void uppergoingtask(void const * argument)
   float y_fang_5 = 60.5;
   float y_fang_6  = 270.0;
 
-  // xiangzi[0] = 5;
-  // xiangzi[1] = 2;//
+  // xiangzi[0] = 2;
+  // xiangzi[1] = 6;//
   // xiangzi[2] = 1;
   // xiangzi[3] = 4;
   // xiangzi[4] = 3;//
-  // xiangzi[5] = 6;
+  // xiangzi[5] = 5;
 
-  // zhiduo[0] = 1;
-  // zhiduo[1] = 2;
-  // zhiduo[2] = 0;
-  // zhiduo[3] = 4;
+  // zhiduo[0] = 5;
+  // zhiduo[1] = 4;
+  // zhiduo[2] = 1;
+  // zhiduo[3] = 3;
   // zhiduo[4] = 6;
-  // zhiduo[5] = 3;
+  // zhiduo[5] = 0;
   osDelay(600);
   osDelay(1350);
   matchingnum(xiangzi, tx_buffer4);
@@ -246,8 +247,8 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x = x_qu;
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-        if(diff1 < 15 && diff2 < 4 && diff3 < 4)
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+        if(diff1 < 15 && diff2 < 4 && diff3 < 10)
         {
           runflag = 4;
           osDelay(10);
@@ -281,7 +282,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.x = x_qu_ps;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
         if(diff < 60 && diff3 < 60)
         {
           runflag = 7;
@@ -321,10 +322,10 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 10)
       {
-        mygantry.gantrypos.x = x_qu + 5.0;
+        mygantry.gantrypos.x = x_qu + 10.0;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-        if(diff < 15 && diff3 < 4)
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+        if(diff < 15 && diff3 < 10)
         {
           runflag = 11;
           osDelay(10);
@@ -417,8 +418,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step00 = 1;
           }
@@ -447,7 +448,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 100 && diff2 < 80 && diff3 < 80)
           {
             step00 = 200;
@@ -500,8 +501,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 10 && diff2 < 4 && diff3 < 10)
           {
             step00 = 4;//[3]运动到位
           }
@@ -585,8 +586,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 10 && diff2 < 4 && diff3 < 10)
           {
             step01 = 1;//[3]运动到位
           }
@@ -616,7 +617,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step01 = 3;
@@ -670,8 +671,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10) 
           {
             osDelay(50);
             step01 = 4;//[3]运动到位
@@ -757,8 +758,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step02 = 1;//[3]运动到位
           }
@@ -788,7 +789,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step02 = 300;
@@ -842,8 +843,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step02 = 4;//[3]运动到位
           }
@@ -922,8 +923,8 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x = x_qu;
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-        if(diff1 < 15 && diff2 < 4 && diff3 < 4)
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+        if(diff1 < 15 && diff2 < 4 && diff3 < 10)
         {
           runflag = 4;
           osDelay(10);
@@ -957,7 +958,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.x = x_qu_ps;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
         if(diff < 100 && diff3 < 100)
         {
           runflag = 7;
@@ -995,9 +996,9 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 10)
       {
-        mygantry.gantrypos.x = x_qu;
+        mygantry.gantrypos.x = x_qu + 10.0;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
         if(diff < 15 && diff3 < 15)
         {
           runflag = 11;
@@ -1068,10 +1069,12 @@ void uppergoingtask(void const * argument)
           else if(mapping[4] == 2)
           {
             mygantry.gantrypos.y = y_fang_2;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2  + x_2errorth;
           }else if(mapping[4] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2;
             Lcompensation = 1.02 ;
           }
@@ -1089,8 +1092,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step10 = 1;
           }
@@ -1121,7 +1124,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step10 = 200;
@@ -1153,10 +1156,12 @@ void uppergoingtask(void const * argument)
           else if(mapping[1] == 2)
           {
             mygantry.gantrypos.y = y_fang_2;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2  + x_errorth;
           }else if(mapping[1] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2  + x_errorth;
             Lcompensation = 1.02 ;
           }
@@ -1174,8 +1179,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step10 = 4;//[3]运动到位
           }
@@ -1262,8 +1267,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step11 = 1;
           }
@@ -1293,7 +1298,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step11 = 3;
@@ -1347,8 +1352,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step11 = 4;
             osDelay(10);
@@ -1437,8 +1442,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step12 = 1;//[3]运动到位
           }
@@ -1468,7 +1473,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step12 = 300;
@@ -1522,8 +1527,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step12 = 4;//[3]运动到位
           }
@@ -1605,8 +1610,8 @@ void uppergoingtask(void const * argument)
         mygantry.gantrypos.x = x_qu;
         float diff1 = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
         float diff2 = fabs(mygantry.gantrypos.y - Lidar2.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-        if(diff1 < 15 && diff2 < 4 && diff3 < 4)
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+        if(diff1 < 15 && diff2 < 4 && diff3 < 10)
         {
           runflag = 4;
           osDelay(10);
@@ -1640,7 +1645,7 @@ void uppergoingtask(void const * argument)
       {
         mygantry.gantrypos.x = x_qu_ps;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
         if(diff < 100 && diff3 < 100)
         {
           runflag = 7;
@@ -1674,9 +1679,9 @@ void uppergoingtask(void const * argument)
       }
       if(runflag == 10)
       {
-        mygantry.gantrypos.x = x_qu + 5.0;
+        mygantry.gantrypos.x = x_qu + 10.0;
         float diff = fabs(mygantry.gantrypos.x - Lidar1.distance_aver);
-        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+        float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
         if(diff < 15 && diff3 < 15)
         {
           runflag = 11;
@@ -1750,10 +1755,12 @@ void uppergoingtask(void const * argument)
           else if(mapping[5] == 2)
           {
             mygantry.gantrypos.y = y_fang_2;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2  + x_2errorth;
           }else if(mapping[5] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2;
             Lcompensation = 1.02 ;
           }
@@ -1771,8 +1778,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step20 = 1;//[0]运动到位
           }
@@ -1802,7 +1809,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step20 = 200;
@@ -1834,10 +1841,12 @@ void uppergoingtask(void const * argument)
           else if(mapping[2] == 2)
           {
             mygantry.gantrypos.y = y_fang_2;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2 + x_errorth;
           }else if(mapping[2] == 5)
           {
             mygantry.gantrypos.y = y_fang_5;
+            osDelay(800);
             mygantry.gantrypos.x = x_fang_4_2 + x_errorth;
             Lcompensation = 1.02 ;
           }
@@ -1855,8 +1864,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
 
             step20 = 4;//[3]运动到位
@@ -1886,8 +1895,8 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             osDelay(200);
             step20 = 6;//[3]运动到位
@@ -1945,8 +1954,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step21 = 1;//[3]运动到位
           }
@@ -1975,7 +1984,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step21 = 3;
@@ -2029,8 +2038,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step21 = 4;//[3]运动到位
           }
@@ -2060,8 +2069,8 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step21 = 6;//[3]运动到位
           }
@@ -2119,8 +2128,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step22 = 1;//[3]运动到位
           }
@@ -2150,7 +2159,7 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
           if(diff1 < 120 && diff2 < 80 && diff3 < 80)
           {
             step22 = 300;
@@ -2204,8 +2213,8 @@ void uppergoingtask(void const * argument)
           }
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step22 = 4;//[3]运动到位
           }
@@ -2235,8 +2244,8 @@ void uppergoingtask(void const * argument)
           mygantry.gantrypos.y = y_middle;
           float diff1 = fabs(mygantry.gantrypos.x-Lidar1.distance_aver);
           float diff2 = fabs(mygantry.gantrypos.y-Lidar2.distance_aver);
-          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - 30);
-          if(diff1 < 4 && diff2 < 4 && diff3 < 4)
+          float diff3 = fabs(mygantry.gantrypos.x - Lidar6.distance_aver - x_fix);
+          if(diff1 < 4 && diff2 < 4 && diff3 < 10)
           {
             step22 = 6;//[3]运动到位
           }

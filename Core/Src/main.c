@@ -108,6 +108,7 @@ int main(void)
   HAL_UART_Receive_IT(&huart4, &rxBuffer1[rxIndex1], 1);
   HAL_UART_Receive_IT(&huart5, &rxBuffer2[rxIndex2], 1);
 
+  HAL_Delay(1000);
   while(flag1 == 0 || flag2 == 0)
   {
     for (int i = 0; i < 42; i++) {
@@ -118,11 +119,14 @@ int main(void)
             printf("%c ", rxBuffer2[i]);
         }
     printf("\n");    
-    HAL_Delay(1000);
+    HAL_Delay(100);
   }
 
   HAL_UART_AbortReceive_IT(&huart4);
   HAL_UART_AbortReceive_IT(&huart5);
+
+  //HAL_Delay(1000);
+
   /* USER CODE END 2 */
 
 
