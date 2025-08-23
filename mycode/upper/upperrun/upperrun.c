@@ -143,16 +143,16 @@ void uppergoingtask(void const * argument)
 
   //
   float zhuazibhfang = 75 ;
-  float zhuazibhopen = 80 ;
+  float zhuazibhopen = 78 ;
   float zhuazibhclose = 96 ;
 
   float zhuazicaifang = 80 ;
-  float zhuazicaiopen = 84 ;
+  float zhuazicaiopen = 82 ;
   float zhuazicaiclose = 101 ; 
   
   //230/240举起来  15取物   867取物  66放置1    397放置2
 
-  float z_upeer_up = 1020;
+  float z_upeer_up = 1025;
   float z_upeer_down = 870;
   float z_down_up = 240;
   float z_down_down = 10;
@@ -180,11 +180,8 @@ void uppergoingtask(void const * argument)
 
   float y_fang_1 = 1149.0;
   float y_fang_2 = 1388.0;
-  float y_fang_3 = 950.0;
+  float y_fang_3 = 945.0;
   float y_fang_4 = 480.5;
-
-
-
   float y_fang_5 = 60.5;
   float y_fang_6  = 270.0;
 

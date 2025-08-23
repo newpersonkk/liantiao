@@ -152,13 +152,13 @@ void gantry_Motor_init()               //电机初始化
 
     //小米电机调0
     osDelay(100);
+
     init_cybergear(&mi_motor[0], 0x7F, Motion_mode);
-    osDelay(500);
-    set_zeropos_cybergear(&mi_motor[0]);
-    // Set_Motor_Parameter(&mi_motor[0],0x2013,1.0,'f');
+    //set_zeropos_cybergear(&mi_motor[0]);
+    //Set_Motor_Parameter(&mi_motor[0],0x2013,1.0,'f');
     //Set_Motor_Parameter(&mi_motor[0],0x2013,0.5,'f');
     motor_controlmode(&mi_motor[0], 0, 0, 0, 1.0, 0.5);
-    osDelay(20);
+    osDelay(5);
     motor_controlmode(&mi_motor[0], 0, 0, 0, 1.0, 0.5);
     osDelay(500);
     //set_position_target_and_speed(&mi_motor[0] , 3.141592654 * 1.0, 80 / 180.0 * 3.1415926);

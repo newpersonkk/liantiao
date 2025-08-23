@@ -16,6 +16,7 @@
 #include "main.h"
 #include "can.h"
 #include "mi_motor.h"
+#include "cmsis_os.h"
 
 CAN_RxHeaderTypeDef rxMsg;//发送接收结构体
 CAN_TxHeaderTypeDef txMsg;//发送配置结构体
@@ -245,7 +246,12 @@ void init_cybergear(MI_Motor *Motor,uint8_t Can_Id, uint8_t mode)
     
 	Motor->CAN_ID=Can_Id;       //ID设置 
 	set_mode_cybergear(Motor,mode);//设置电机模式
+  osDelay(100);
+  set_zeropos_cybergear(Motor);
+  osDelay(100);
 	start_cybergear(Motor);        //使能电机
+  osDelay(100);
+  start_cybergear(Motor); 
   Motor->PowerOnFlag = 0;
     Motor->PowerOnPosition = 0.0f;
 }
